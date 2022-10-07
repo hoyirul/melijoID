@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('unit_id')->constrained();
             $table->string('product_name');
             $table->float('price');
-            $table->int('stock');
+            $table->integer('stock');
             $table->text('description')->nullable();
             $table->timestamps();
         });

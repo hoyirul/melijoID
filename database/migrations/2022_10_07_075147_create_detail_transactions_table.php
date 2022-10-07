@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('detail_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreign('header_transaction_id')->references('txid')->on('header_transactions');
+            $table->string('txid', 20)->nullable();
+            $table->foreign('txid')->references('txid')->on('header_transactions');
             $table->foreignId('product_id')->constrained();
-            $table->int('quantity');
+            $table->integer('quantity');
             $table->float('price');
             $table->float('substotal');
             $table->timestamps();

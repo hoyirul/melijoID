@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['recipe_title', 'recipe_level', 'step'];
+
+    public function recipe_favourite(){
+        return $this->hasMany(RecipeFavourite::class);
+    }
 }

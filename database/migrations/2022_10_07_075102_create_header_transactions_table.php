@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('header_transactions', function (Blueprint $table) {
-            $table->string('txid')->primary();
+            $table->string('txid', 20)->primary();
             $table->foreignId('user_customer_id')->constrained();
             $table->foreignId('user_seller_id')->constrained();
             $table->foreignId('user_operator_id')->constrained();

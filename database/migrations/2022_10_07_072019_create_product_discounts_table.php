@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->foreignId('discount_id')->constrained();
-            $table->timestamp('start_at');
-            $table->timestamp('end_at');
+            $table->dateTime('start_at');
+            $table->dateTime('end_at');
             $table->timestamps();
         });
     }

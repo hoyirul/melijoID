@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('header_transaction_id')->constrained();
-            $table->foreignId('product_id')->constrained();
+            $table->string('txid', 20)->nullable();
+            $table->foreign('txid')->references('txid')->on('header_transactions');
             $table->string('invoice', 20)->unique();
             $table->text('evidence_of_transfer')->nullable();
             $table->timestamp('paid_date')->nullable();

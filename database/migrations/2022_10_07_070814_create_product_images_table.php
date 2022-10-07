@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->text('image')->nullable();
-            $table->int('carousel');
+            $table->integer('carousel');
             $table->timestamps();
         });
     }
