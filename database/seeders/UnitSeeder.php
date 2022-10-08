@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\Unit;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class UnitSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,15 +16,15 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['role_name' => 'superadmin'],
-            ['role_name' => 'admin'],
-            ['role_name' => 'cutsomer'],
-            ['role_name' => 'seller'],
+            ['unit_name' => 'PCS'],
+            ['unit_name' => 'KG'],
+            ['unit_name' => 'GR'],
+            ['unit_name' => 'IKAT'],
         ];
 
         foreach($data as $row){
-            Role::create([
-                'role_name' => $row['role_name']
+            Unit::create([
+                'unit_name' => $row['unit_name']
             ]);
         }
     }
