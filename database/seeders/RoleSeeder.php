@@ -18,7 +18,7 @@ class RoleSeeder extends Seeder
         $data = [
             ['role_name' => 'superadmin'],
             ['role_name' => 'admin'],
-            ['role_name' => 'cutsomer'],
+            ['role_name' => 'customer'],
             ['role_name' => 'seller'],
         ];
 
