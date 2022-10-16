@@ -34,7 +34,7 @@
                       @csrf
                       <div class="form-group">
                         <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror"
-                          id="exampleInputEmail" name="email" aria-describedby="emailHelp"
+                          id="exampleInputEmail" name="email" value="{{ old('email') }}" aria-describedby="emailHelp"
                           placeholder="Enter Email Address...">
                         @error('email')
                           <span class="invalid-feedback" role="alert">

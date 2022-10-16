@@ -6,6 +6,7 @@ use App\Http\Controllers\Operator\HomeController;
 use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Operator\RoleController;
 use App\Http\Controllers\Operator\SellerController;
+use App\Http\Controllers\Operator\SettingController;
 use App\Http\Controllers\Operator\UnitController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,13 @@ Route::middleware('auth')->group(function(){
     Route::prefix('operator')->group(function(){
         Route::controller(HomeController::class)->group(function(){
             Route::get('dashboard', 'index');
+        });
+
+        Route::controller(SettingController::class)->group(function() {
+            Route::get('/change_password', 'change_password');
+            Route::put('/update_password', 'update_password');
+            Route::get('/change_profile', 'change_profile');
+            Route::put('/update_profile', 'update_profile');
         });
 
         Route::middleware('isSuperadmin')->group(function(){
