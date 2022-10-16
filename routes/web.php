@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Operator\CategoryController;
+use App\Http\Controllers\Operator\CustomerController;
 use App\Http\Controllers\Operator\HomeController;
+use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Operator\RoleController;
+use App\Http\Controllers\Operator\SellerController;
 use App\Http\Controllers\Operator\UnitController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +39,10 @@ Route::middleware('auth')->group(function(){
             Route::resource('role', RoleController::class);
             Route::resource('category', CategoryController::class);
             Route::resource('unit', UnitController::class);
+
+            Route::resource('operator', OperatorController::class);
+            Route::resource('customer', CustomerController::class);
+            Route::resource('seller', SellerController::class);
         });
     });
 });
