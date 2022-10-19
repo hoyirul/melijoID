@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\UserAddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('role', RoleController::class);
 Route::resource('unit', RoleController::class);
 Route::resource('category', RoleController::class);
+Route::resource('address', AddressController::class);
+Route::resource('user_address', UserAddressController::class);

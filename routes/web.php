@@ -4,6 +4,7 @@ use App\Http\Controllers\Operator\CategoryController;
 use App\Http\Controllers\Operator\CustomerController;
 use App\Http\Controllers\Operator\HomeController;
 use App\Http\Controllers\Operator\OperatorController;
+use App\Http\Controllers\Operator\RecipeController;
 use App\Http\Controllers\Operator\RoleController;
 use App\Http\Controllers\Operator\SellerController;
 use App\Http\Controllers\Operator\SettingController;
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function(){
             Route::get('/change_profile', 'change_profile');
             Route::put('/update_profile', 'update_profile');
         });
+
+        Route::resource('recipes', RecipeController::class);
 
         Route::middleware('isSuperadmin')->group(function(){
             Route::resource('role', RoleController::class);
