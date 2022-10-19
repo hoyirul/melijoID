@@ -17,7 +17,7 @@ class UnitController extends Controller
     {
         $response = Unit::withCount('product')
                      ->get();
-        return response()->json($response, 200);
+        return $this->sendResponse($response, 200);
     }
 
     /**
