@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
@@ -14,7 +15,12 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Recipe Table';
+        $tables = Recipe::all();
+        return view('operators.recipes.index', compact([
+            'title',
+            'tables'
+        ]));
     }
 
     /**
@@ -24,7 +30,10 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Recipe Table';
+        return view('operators.recipes.create', compact([
+            'title'
+        ]));
     }
 
     /**
@@ -35,7 +44,20 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'recipe_title' => 'required',
+            'recipe_level' => 'required',
+            'step' => 'required',
+        ]);
+
+        Recipe::create([
+            'recipe_title' => $request->recipe_title,
+            'recipe_level' => $request->recipe_level,
+            'step' => $request->step,
+        ]);
+
+        return redirect()->to('/operator/recipe')
+                    ->with('success', 'Data added successfully!');
     }
 
     /**
@@ -46,7 +68,12 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
-        //
+        $title = 'Recipe Table';
+        $tables = Recipe::where('id', $id)->first();
+        return view('operators.recipes.show', compact([
+            'title',
+            'tables'
+        ]));
     }
 
     /**
@@ -57,7 +84,11 @@ class RecipeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Recipe Table';
+        $tables = Recipe::where('id', $id)->first();
+        return view('operators.recipes.edit', compact([
+            'title', 'tables'
+        ]));
     }
 
     /**
@@ -69,7 +100,20 @@ class RecipeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'recipe_title' => 'required',
+            'recipe_level' => 'required',
+            'step' => 'required',
+        ]);
+
+        Recipe::where('id', $id)->update([
+            'recipe_title' => $request->recipe_title,
+            'recipe_level' => $request->recipe_level,
+            'step' => $request->step,
+        ]);
+
+        return redirect()->to('/operator/recipe')
+                    ->with('success', 'Data changed successfully!');
     }
 
     /**
@@ -80,6 +124,7 @@ class RecipeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Recipe::where('id', $id)->delete();
+        return redirect('/operator/recipe')->with('success', 'Data deleted successfully!');
     }
 }
