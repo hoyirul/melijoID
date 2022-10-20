@@ -61,6 +61,12 @@
     <script src="{{ asset('operators/js/demo/chart-pie-demo.js') }}"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+          selector: '#textareaTiny'
+      });
+    </script>
     <script>
       $(document).ready(function () {
           $('#dataTable').DataTable();

@@ -53,23 +53,6 @@
     </div>
   </li>
   <!-- Nav Item - Utilities Collapse Menu -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
-      aria-expanded="true" aria-controls="collapseProducts">
-    <i class="fas fa-fw fa-wrench"></i>
-    <span>Products</span>
-    </a>
-    <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities"
-      data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Utilities:</h6>
-        <a class="collapse-item" href="utilities-color.html">Colors</a>
-        <a class="collapse-item" href="utilities-border.html">Borders</a>
-        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-        <a class="collapse-item" href="utilities-other.html">Other</a>
-      </div>
-    </div>
-  </li>
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRecipes"
@@ -77,14 +60,11 @@
     <i class="fas fa-fw fa-list"></i>
     <span>Recipes</span>
     </a>
-    <div id="collapseRecipes" class="collapse" aria-labelledby="headingUtilities"
+    <div id="collapseRecipes" class="collapse {{ ($title == 'Recipe Table' || $title == 'Product Recipe Table') ? 'show' : '' }}" aria-labelledby="headingUtilities"
       data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Utilities:</h6>
-        <a class="collapse-item" href="utilities-color.html">Colors</a>
-        <a class="collapse-item" href="utilities-border.html">Borders</a>
-        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-        <a class="collapse-item" href="utilities-other.html">Other</a>
+        <h6 class="collapse-header">Master Recipes:</h6>
+        <a class="collapse-item {{ ($title == 'Recipe Table') ? 'active' : '' }}" href="/operator/recipe">Recipes</a>
       </div>
     </div>
   </li>
@@ -92,40 +72,42 @@
   <hr class="sidebar-divider">
   <!-- Heading -->
   <div class="sidebar-heading">
-    Transaction
+    Transactions
   </div>
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-      aria-expanded="true" aria-controls="collapsePages">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransaction"
+      aria-expanded="true" aria-controls="collapseTransaction">
     <i class="fas fa-fw fa-folder"></i>
-    <span>Pages</span>
+    <span>Transactions</span>
     </a>
-    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+    <div id="collapseTransaction" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Login Screens:</h6>
-        <a class="collapse-item" href="login.html">Login</a>
-        <a class="collapse-item" href="register.html">Register</a>
-        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-        <div class="collapse-divider"></div>
-        <h6 class="collapse-header">Other Pages:</h6>
-        <a class="collapse-item" href="404.html">404 Page</a>
-        <a class="collapse-item" href="blank.html">Blank Page</a>
+        <h6 class="collapse-header">All Transaction:</h6>
+        <a class="collapse-item" href="/operator/transaction">Transactions</a>
       </div>
     </div>
   </li>
-  <!-- Nav Item - Charts -->
+
   <li class="nav-item">
-    <a class="nav-link" href="charts.html">
-    <i class="fas fa-fw fa-chart-area"></i>
-    <span>Charts</span></a>
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment"
+      aria-expanded="true" aria-controls="collapsePayment">
+    <i class="fas fa-fw fa-chart-pie"></i>
+    <span>Payments</span>
+    </a>
+    <div id="collapsePayment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Status Payments:</h6>
+        <a class="collapse-item" href="/operator/payment/paid">Paid</a>
+        <a class="collapse-item" href="/operator/payment/unpaid">Unpaid</a>
+        <a class="collapse-item" href="/operator/payment/processing">Processing</a>
+        <div class="collapse-divider"></div>
+        <h6 class="collapse-header">All Payments:</h6>
+        <a class="collapse-item" href="/operator/payment/all">Payments</a>
+      </div>
+    </div>
   </li>
-  <!-- Nav Item - Tables -->
-  <li class="nav-item">
-    <a class="nav-link" href="tables.html">
-    <i class="fas fa-fw fa-table"></i>
-    <span>Tables</span></a>
-  </li>
+  
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
   <!-- Sidebar Toggler (Sidebar) -->
