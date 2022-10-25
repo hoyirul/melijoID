@@ -2,62 +2,117 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FcmTokenRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\Address;
 use App\Models\User;
+use App\Models\UserAddress;
+use App\Models\UserCustomer;
+use App\Models\UserSeller;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+    use ApiResponse;
 
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['email' => 'The provided credentials are incorrect.']);
+    public function login(LoginRequest $request){
+        $validated = $request->validated();
+        if(!Auth::attempt($validated)){
+            return $this->apiError('Credentials not match', Response::HTTP_UNAUTHORIZED);
         }
-        
-        return response()->json(
-            [
-                'data' => $user,
-                'token' => $user->createToken($request->email)->plainTextToken,
-            ],
-            200
-        );
+        $user = User::where('email', $validated['email'])->first();
+        $token = $user->createToken($validated['email'])->plainTextToken;
+
+        return $this->apiSuccess([
+            'token' => $token,
+            'token_type' => 'Bearer',
+            'user' => $user
+        ]);
     }
 
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => ['required', 'string', 'min:8', 'confirmed', Password::defaults()],
-            'device_name' => 'required',
+    public function fcm(FcmTokenRequest $request){
+        $validated = $request->validated();
+
+        $getFcmToken = User::where('id', $validated['id'])->update([
+            'fcm_token' => $validated['fcm_token']
         ]);
+
+        return $this->apiSuccess([
+            'message' => 'Success',
+            'user' => $getFcmToken
+        ]);
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $validated = $request->validated();
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role_id' => $validated['role_id']
         ]);
 
-        return response()->json(
-            [
-                'token' => $user->createToken($request->email)->plainTextToken,
-            ],
-            200
-        );
+        $row = User::orderBy('id', 'DESC')->first();
+
+        switch($validated['role_id']){
+            case 3:
+                UserCustomer::create([
+                    'user_id' => $row->id,
+                    'name' => $validated['name'],
+                    'phone' => $validated['phone'],
+                ]);
+                break;
+            case 4:
+                UserSeller::create([
+                    'user_id' => $row->id,
+                    'name' => $validated['name'],
+                    'phone' => $validated['phone'],
+                ]);
+                break;
+        }
+
+        Address::create([
+            'province' => $validated['province'],
+            'city' => $validated['city'],
+            'districts' => $validated['districts'],
+            'ward' => $validated['ward'],
+        ]);
+
+        $address = Address::orderBy('id', 'DESC')->first();
+
+        UserAddress::create([
+            'user_id' => $row->id,
+            'addresses_id' => $address->id,
+        ]);
+
+        $token = $user->createToken($validated['email'])->plainTextToken;
+
+        return $this->apiSuccess([
+            'token' => $token,
+            'token_type' => 'Bearer',
+            'user' => $user
+        ]);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $request->user()->currentAccessToken()->delete();
-        return response()->noContent();
+        try{
+            auth()->user()->tokens()->delete();
+            return $this->apiSuccess('Tokens Revoked');
+        } catch(\Throwable $e){
+            throw new HttpResponseException($this->apiError(
+                null,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            ));
+        }
     }
 }

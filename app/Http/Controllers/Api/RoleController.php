@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleRequest;
 use App\Models\Role;
-use Illuminate\Http\Request;
+use App\Traits\ApiResponse;
 
 class RoleController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +17,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $response = Role::withCount('user')
+        $response = Role::with('user')
                      ->get();
-        return response()->json($response, 200);
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -26,15 +28,13 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $request->validate([
-            'role_name' => 'required|string'
-        ]);
+        $request->validated();
         
         $response = Role::create($request->all());
 
-        return response()->json($response, 201);
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -45,9 +45,9 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $response = Role::withCount('user')
-                     ->where('id', $id)->first();
-        return response()->json($response, 200);
+        $response = Role::with('user')
+                        ->where('id', $id)->first();
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -57,15 +57,14 @@ class RoleController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        $request->validate([
-            'role_name' => 'required|string'
-        ]);
-
-        $response = Role::where('id', $id)->update($request->all());
-
-        return response()->json($response, 201);
+        $request->validated();
+        Role::where('id', $id)->update($request->all());
+        $response = Role::with('user')
+                        ->where('id', $id)->first();
+        return $this->apiSuccess($response);
+        
     }
 
     /**
@@ -76,9 +75,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::where('id', $id)->delete();
-        return response()->json([
-            'message' => 'Successfuly deleted!'
-        ], 201);
+        $response = Role::where('id', $id)->delete();
+        return $this->apiSuccess($response);
     }
 }

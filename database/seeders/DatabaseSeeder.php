@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
             UserCustomerSeeder::class,
             UserSellerSeeder::class,
             UnitSeeder::class,
-            CategorySeeder::class
+            CategorySeeder::class,
+            AddressSeeder::class,
+            UserAddressSeeder::class,
         ]);
     }
 }

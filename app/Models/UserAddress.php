@@ -9,10 +9,10 @@ class UserAddress extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'address_id'];
+    protected $fillable = ['user_id', 'addresses_id'];
 
     public function address(){
-        return $this->belongsTo(Address::class, 'address_id', 'id');
+        return $this->belongsTo(Address::class, 'addresses_id', 'id');
     }
 
     public function user(){

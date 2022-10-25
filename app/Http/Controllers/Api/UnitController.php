@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UnitRequest;
 use App\Models\Unit;
-use Illuminate\Http\Request;
+use App\Traits\ApiResponse;
+use Exception;
 
 class UnitController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +18,9 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $response = Unit::withCount('product')
+        $response = Unit::with('product')
                      ->get();
-        return $this->sendResponse($response, 200);
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -26,15 +29,18 @@ class UnitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UnitRequest $request)
     {
-        $request->validate([
-            'role_name' => 'required|string'
-        ]);
-        
-        $response = Unit::create($request->all());
+        try{
+            $request->validated();
+            $response = Unit::create($request->all());
 
-        return response()->json($response, 201);
+            return $this->apiSuccess($response);
+        }catch(Exception $e){
+            return response()->json([
+                'message' => $e,
+            ]);
+        }
     }
 
     /**
@@ -45,9 +51,9 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        $response = Unit::withCount('product')
-                     ->where('id', $id)->first();
-        return response()->json($response, 200);
+        $response = Unit::with('product')
+                        ->where('id', $id)->first();
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -57,15 +63,14 @@ class UnitController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UnitRequest $request, $id)
     {
-        $request->validate([
-            'role_name' => 'required|string'
-        ]);
-
-        $response = Unit::where('id', $id)->update($request->all());
-
-        return response()->json($response, 201);
+        $request->validated();
+        Unit::where('id', $id)->update($request->all());
+        $response = Unit::with('product')
+                        ->where('id', $id)->first();
+        return $this->apiSuccess($response);
+        
     }
 
     /**
@@ -76,9 +81,7 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        Unit::where('id', $id)->delete();
-        return response()->json([
-            'message' => 'Successfuly deleted!'
-        ], 201);
+        $response = Unit::where('id', $id)->delete();
+        return $this->apiSuccess($response);
     }
 }

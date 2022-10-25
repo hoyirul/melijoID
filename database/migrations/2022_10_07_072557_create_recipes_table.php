@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('recipe_title', 100);
             $table->enum('recipe_level', ['mudah', 'sedang', 'sulit'])->default('mudah');
             $table->text('step')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

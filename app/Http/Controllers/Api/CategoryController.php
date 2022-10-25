@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Traits\ApiResponse;
+use Exception;
 
 class CategoryController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +18,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $response = Category::withCount('product')
+        $response = Category::with('product')
                      ->get();
-        return response()->json($response, 200);
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -26,15 +29,18 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-            'category_name' => 'required|string'
-        ]);
-        
-        $response = Category::create($request->all());
+        try{
+            $request->validated();
+            $response = Category::create($request->all());
 
-        return response()->json($response, 201);
+            return $this->apiSuccess($response);
+        }catch(Exception $e){
+            return response()->json([
+                'message' => $e,
+            ]);
+        }
     }
 
     /**
@@ -45,9 +51,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $response = Category::withCount('product')
-                     ->where('id', $id)->first();
-        return response()->json($response, 200);
+        $response = Category::with('product')
+                        ->where('id', $id)->first();
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -57,15 +63,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $request->validate([
-            'category_name' => 'required|string'
-        ]);
-
-        $response = Category::where('id', $id)->update($request->all());
-
-        return response()->json($response, 201);
+        $request->validated();
+        Category::where('id', $id)->update($request->all());
+        $response = Category::with('product')
+                        ->where('id', $id)->first();
+        return $this->apiSuccess($response);
+        
     }
 
     /**
@@ -76,9 +81,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::where('id', $id)->delete();
-        return response()->json([
-            'message' => 'Successfuly deleted!'
-        ], 201);
+        $response = Category::where('id', $id)->delete();
+        return $this->apiSuccess($response);
     }
 }
