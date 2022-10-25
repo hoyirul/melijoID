@@ -1,0 +1,21 @@
+APP - Denis
+- Auth (Login, Register[Address], FCM)
+- Menampilkan Melijo Berdasarkan Ward
+- Dashboard (Daftar Melijo)
+- Produk (Melijo)
+- Cart (GroupBy Melijo, Delete jika pidah melijo)
+- Address (4 form inputan)
+- Transaksi 
+- Unggah Bukti transfer
+
+API - Hoy
+- API : Melijo (all (berdasarkan ward), show)
+- API : Product (all (berdasarkn melijo dan ward))
+- API : Product (Create) - Edit - Delete (where melijo ID)
+- API : Cart (All, show, delete)
+- API : Transaction (create)
+- API : Payment (Create)
+- Mengatur Jadwal Pengiriman (add column delivery_schedule)
+- image, imageURL (Resep)
+- Try Catch
+
