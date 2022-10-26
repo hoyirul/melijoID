@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\UserSeller;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -22,9 +23,10 @@ class SellerController extends Controller
     }
 
     public function show_by_id($id){
-        $response = Product::with('unit')->with('category')->with('user_seller')
-                    ->where('user_seller_id', $id)
-                    ->get();
+        $response = ProductImage::join('products', 'product_image.product_id', '=', 'products.id')
+                        ->where('products.user_seller_id', $id)
+                        ->where('carousel', 1)
+                        ->get();
         return $this->apiSuccess($response);
     }
 }
