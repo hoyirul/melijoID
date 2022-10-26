@@ -17,8 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $response = Role::with('user')
-                     ->get();
+        $response = Role::all();
         return $this->apiSuccess($response);
     }
 
@@ -45,8 +44,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $response = Role::with('user')
-                        ->where('id', $id)->first();
+        $response = Role::where('id', $id)->first();
         return $this->apiSuccess($response);
     }
 
@@ -61,8 +59,7 @@ class RoleController extends Controller
     {
         $request->validated();
         Role::where('id', $id)->update($request->all());
-        $response = Role::with('user')
-                        ->where('id', $id)->first();
+        $response = Role::where('id', $id)->first(); 
         return $this->apiSuccess($response);
         
     }

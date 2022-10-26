@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\UserSeller;
 use App\Traits\ApiResponse;
