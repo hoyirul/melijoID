@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductImageController;
+use App\Http\Controllers\Api\PromoController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\UnitController;
@@ -42,5 +44,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(SellerController::class)->group(function() {
         Route::get('user_seller/{ward}', 'index');
         Route::get('user_seller/{id}/product', 'show_by_id');
+    });
+
+    Route::controller(CartController::class)->group(function() {
+        Route::get('cart/{customer_id}', 'index');
+        Route::post('cart', 'store');
+        Route::get('cart/{id}', 'show');
+        Route::put('cart/{id}', 'update');
+        Route::delete('cart/{id}', 'destroy');
+    });
+
+    Route::controller(PromoController::class)->group(function() {
+        Route::get('promo', 'index');
+        Route::get('promo/{promo_code}', 'show');
     });
 });

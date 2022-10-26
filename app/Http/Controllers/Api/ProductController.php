@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Traits\ApiResponse;
 use Exception;
 use Illuminate\Http\Request;
@@ -54,10 +55,17 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $response = Product::with('user_seller')
+        $product = Product::with('user_seller')
                         ->with('category')
                         ->with('unit')
                         ->where('id', $id)->first();
+        $productImage = ProductImage::where('product_id', $id)->get();
+        
+        $response = [
+            'product' => $product,
+            'images' => $productImage
+        ];
+
         return $this->apiSuccess($response);
     }
 

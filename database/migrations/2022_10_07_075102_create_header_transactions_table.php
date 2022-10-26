@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('txid', 20)->primary();
             $table->foreignId('user_customer_id')->constrained();
             $table->foreignId('user_seller_id')->constrained();
-            $table->foreignId('user_operator_id')->constrained();
+            $table->foreignId('user_operator_id')->nullable()->constrained();
             $table->timestamp('date_order')->nullable();
             $table->float('total')->nullable();
             $table->timestamps();

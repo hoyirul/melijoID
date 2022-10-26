@@ -23,7 +23,7 @@ class SellerController extends Controller
     }
 
     public function show_by_id($id){
-        $response = ProductImage::join('products', 'product_image.product_id', '=', 'products.id')
+        $response = ProductImage::join('products', 'product_images.product_id', '=', 'products.id')
                         ->where('products.user_seller_id', $id)
                         ->where('carousel', 1)
                         ->get();
