@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProductImageController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\UnitController;
@@ -35,7 +37,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('unit', UnitController::class);
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('address', AddressController::class);
+    Route::apiResource('product', ProductController::class);
+    Route::apiResource('product_image', ProductImageController::class);
     Route::controller(SellerController::class)->group(function() {
         Route::get('user_seller/{ward}', 'index');
+        Route::get('user_seller/{id}/product', 'show_by_id');
     });
 });

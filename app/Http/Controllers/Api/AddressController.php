@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddressRequest;
 use App\Models\Address;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +18,9 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $response = Address::all();
-        return response()->json($response, 200);
+        $response = Address::with('user')
+                     ->get();
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -25,18 +29,13 @@ class AddressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddressRequest $request)
     {
-        $request->validate([
-            'province' => 'required|string',
-            'city' => 'required|string',
-            'districts' => 'required|string',
-            'ward' => 'required|string'
-        ]);
+        $request->validated();
         
         $response = Address::create($request->all());
 
-        return response()->json($response, 201);
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -47,8 +46,9 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        $response = Address::where('id', $id)->first();
-        return response()->json($response, 200);
+        $response = Address::with('user')
+                        ->where('id', $id)->first();
+        return $this->apiSuccess($response);
     }
 
     /**
@@ -58,18 +58,14 @@ class AddressController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AddressRequest $request, $id)
     {
-        $request->validate([
-            'province' => 'required|string',
-            'city' => 'required|string',
-            'districts' => 'required|string',
-            'ward' => 'required|string'
-        ]);
-
-        $response = Address::where('id', $id)->update($request->all());
-
-        return response()->json($response, 201);
+        $request->validated();
+        Address::where('id', $id)->update($request->all());
+        $response = Address::with('user')
+                        ->where('id', $id)->first();
+        return $this->apiSuccess($response);
+        
     }
 
     /**
@@ -80,9 +76,7 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        Address::where('id', $id)->delete();
-        return response()->json([
-            'message' => 'Successfuly deleted!'
-        ], 201);
+        $response = Address::where('id', $id)->delete();
+        return $this->apiSuccess($response);
     }
 }

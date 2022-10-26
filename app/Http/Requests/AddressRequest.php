@@ -24,7 +24,10 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'province' => 'required|string',
+            'city' => 'required|string',
+            'districts' => 'required|string',
+            'ward' => 'required|string'
         ];
     }
 }
