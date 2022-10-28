@@ -4,11 +4,13 @@ use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductImageController;
 use App\Http\Controllers\Api\PromoController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SellerController;
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserAddressController;
 use Illuminate\Http\Request;
@@ -52,6 +54,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('cart/{id}', 'show');
         Route::put('cart/{id}', 'update');
         Route::delete('cart/{id}', 'destroy');
+    });
+
+    Route::controller(TransactionController::class)->group(function() {
+        Route::get('transaction/{customer_id}', 'index');
+        Route::post('transaction', 'store');
+    });
+
+    Route::controller(PaymentController::class)->group(function() {
+        Route::get('payment/{customer_id}', 'index');
+        Route::post('payment', 'store');
     });
 
     Route::controller(PromoController::class)->group(function() {

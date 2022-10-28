@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('txid')->references('txid')->on('header_transactions');
             $table->foreignId('product_id')->constrained();
             $table->integer('quantity');
-            $table->float('price');
-            $table->float('substotal');
+            $table->float('price', 12,2);
+            $table->float('substotal', 12,2);
             $table->timestamps();
         });
     }

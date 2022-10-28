@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('promo_title')->nullable();
             $table->text('promo_description')->nullable();
             $table->date('promo_end')->nullable();
-            $table->float('promo_total');
+            $table->float('promo_total', 12,2);
             $table->timestamps();
         });
     }

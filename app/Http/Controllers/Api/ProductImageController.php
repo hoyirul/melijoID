@@ -34,7 +34,7 @@ class ProductImageController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['image'] = $request->file('image')->store('product/'.$validated['product_id'], 'public');
+        $validated['image'] = $request->file('image')->store('products/'.$validated['product_id'], 'public');
 
         $productImage = ProductImage::orderBy('carousel', 'DESC')->where('product_id', $validated['product_id'])->first();
 

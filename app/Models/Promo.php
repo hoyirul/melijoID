@@ -10,6 +10,7 @@ class Promo extends Model
     use HasFactory;
 
     public $incrementing = false;
+    protected $primaryKey = 'promo_code';
     protected $fillable = [
         'promo_code', 'promo_title', 'promo_description', 'promo_end', 'promo_total'
     ];

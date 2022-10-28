@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_seller_id')->constrained();
             $table->foreignId('user_operator_id')->nullable()->constrained();
             $table->timestamp('date_order')->nullable();
-            $table->float('total')->nullable();
+            $table->float('total', 12,2)->nullable();
             $table->timestamps();
         });
     }

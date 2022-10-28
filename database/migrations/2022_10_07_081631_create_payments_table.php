@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('invoice', 20)->unique();
             $table->text('evidence_of_transfer')->nullable();
             $table->timestamp('paid_date')->nullable();
-            $table->float('pay')->nullable();
+            $table->float('pay', 12,2)->nullable();
             $table->enum('status', ['unpaid', 'processing', 'paid'])->default('unpaid');
             $table->timestamps();
         });
