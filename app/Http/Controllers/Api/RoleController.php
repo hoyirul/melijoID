@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequest;
 use App\Models\Role;
 use App\Traits\ApiResponse;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
@@ -60,7 +64,7 @@ class RoleController extends Controller
         $request->validated();
         Role::where('id', $id)->update($request->all());
         $response = Role::where('id', $id)->first(); 
-        return $this->apiSuccess($response);
+        return $this->apiSuccess($response);      
         
     }
 
