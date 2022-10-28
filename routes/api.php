@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('product_image', ProductImageController::class);
     Route::controller(SellerController::class)->group(function() {
         Route::get('user_seller/{ward}', 'index');
-        Route::get('user_seller/{id}/product', 'show_by_id');
+        Route::get('user_seller/{seller_id}/product', 'show_by_id');
     });
 
     Route::controller(CartController::class)->group(function() {
