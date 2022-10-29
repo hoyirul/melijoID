@@ -82,9 +82,9 @@ class ProductImageController extends Controller
             Storage::delete(['public/', $productImage->image]);
         }
 
-        $validated['image'] = $request->file('image')->store('product/'.$validated['pproduct_id'], 'public');
+        $validated['image'] = $request->file('image')->store('product/'.$validated['product_id'], 'public');
         
-        $response = ProductImage::create([
+        $response = ProductImage::where('id', $id)->update([
             'image' => $validated['image'],
         ]);
 

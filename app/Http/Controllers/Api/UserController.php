@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\UploadProfileRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\Address;
 use App\Models\User;
 use App\Models\UserAddress;
@@ -12,6 +13,7 @@ use App\Models\UserCustomer;
 use App\Models\UserSeller;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -41,7 +43,25 @@ class UserController extends Controller
         ]);
     }
 
-    public function update_profile(UploadProfileRequest $request, $id)
+    public function update_profile_image(UploadProfileRequest $request, $id){
+        $validated = $request->validated();
+        $user = User::where('id', $id)->first();
+        if(file_exists(storage_path('app/public/'.$user->image))){
+            Storage::delete(['public/', $user->image]);
+        }
+
+        $validated['image'] = $request->file('image')->store('profiles/'.$id, 'public');
+        
+        User::where('id', $id)->update([
+            'image' => $validated['image'],
+        ]);
+
+        $response = User::where('id', $id)->first();
+
+        return $this->apiSuccess($response);
+    }
+
+    public function update_profile(UserRequest $request, $id)
     {
         $validated = $request->validated();
         User::where('id', $id)->update([
