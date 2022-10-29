@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserAddressController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -89,5 +90,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(PromoController::class)->group(function() {
         Route::get('promo', 'index');
         Route::get('promo/{promo_code}', 'show');
+    });
+
+    Route::controller(UserController::class)->group(function() {
+        Route::get('user/{user_id}/profile', 'show_profile');
+        Route::put('user/{user_id}/profile', 'update_profile');
+        Route::get('user/{user_id}/address', 'show_address');
+        Route::put('user/{user_id}/address', 'update_address');
     });
 });

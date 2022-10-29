@@ -15,7 +15,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'username' => 'required|unique:users|string|max:255',
+            'email' => 'required|unique:users|string|max:255|email',
+            'name' => 'required|string|max:50',
+            'phone' => 'required|string|max:20',
         ];
     }
 
@@ -36,6 +39,6 @@ class UserRequest extends FormRequest
             'success'   => false,
             'message'   => 'Validation errors',
             'data'      => $validator->errors()
-        ]));
+        ], 422));
     }
 }
