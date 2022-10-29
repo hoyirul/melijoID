@@ -66,7 +66,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('transaction/{customer_id}', 'index');
         Route::put('transaction/{txid}/confirmation', 'update_status_trx');
         Route::post('transaction', 'store');
-        Route::get('transaction/{seller_id}/count', 'count_my_transaction');
     });
 
     Route::controller(PaymentController::class)->group(function() {
