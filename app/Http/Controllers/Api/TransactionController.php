@@ -59,15 +59,6 @@ class TransactionController extends Controller
         return $this->apiSuccess('Success update data!');
     }
 
-    public function count_my_transaction($seller_id)
-    {
-        $trx = HeaderTransaction::where('user_seller_id', $seller_id)->count();
-        $response = [
-            'count' => $trx
-        ];
-        return $this->apiSuccess($response);
-    }
-
     public function store(TransactionRequest $request)
     {
         $txid = 'TX-'.strtoupper(Str::random(12));
