@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductImageController;
 use App\Http\Controllers\Api\PromoController;
+use App\Http\Controllers\Api\RecipeController;
+use App\Http\Controllers\Api\RecipeFavouriteController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\TransactionController;
@@ -64,6 +66,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(PaymentController::class)->group(function() {
         Route::get('payment/{customer_id}', 'index');
         Route::post('payment', 'store');
+    });
+
+    Route::controller(RecipeController::class)->group(function() {
+        Route::get('recipe', 'index');
+        Route::get('recipe/{id}', 'show');
+    });
+
+    Route::controller(RecipeFavouriteController::class)->group(function() {
+        Route::get('recipe_favourite/{customer_id}', 'index');
+        Route::post('recipe_favourite', 'store');
+        Route::get('recipe_favourite/{id}', 'show');
+        Route::put('recipe_favourite/{id}', 'update');
+        Route::delete('recipe_favourite/{id}', 'destroy');
     });
 
     Route::controller(PromoController::class)->group(function() {

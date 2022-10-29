@@ -11,7 +11,7 @@ class RecipeFavourite extends Model
 
     protected $fillable = ['user_customer_id', 'recipe_id'];
 
-    public function customer(){
+    public function user_customer(){
         return $this->belongsTo(UserCustomer::class, 'user_customer_id', 'id');
     }
 

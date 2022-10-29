@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RecipeRequest extends FormRequest
+class ProductRecomendationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class RecipeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,10 +26,7 @@ class RecipeRequest extends FormRequest
     public function rules()
     {
         return [
-            'recipe_title' => 'required|string|max:255',
-            'recipe_level' => 'required|string',
-            'step' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            //
         ];
     }
 
