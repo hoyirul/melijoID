@@ -43,8 +43,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('unit', UnitController::class);
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('address', AddressController::class);
+    
     Route::apiResource('product', ProductController::class);
+    Route::get('product/{seller_id}/count', [ProductController::class, 'count_my_product']);
+
     Route::apiResource('product_image', ProductImageController::class);
+
     Route::controller(SellerController::class)->group(function() {
         Route::get('user_seller/{ward}', 'index');
         Route::get('user_seller/{seller_id}/product', 'show_by_id');
@@ -60,7 +64,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(TransactionController::class)->group(function() {
         Route::get('transaction/{customer_id}', 'index');
+        Route::get('transaction/{seller_id}/seller', 'show_by_seller');
+        Route::put('transaction/{txid}/confirmation', 'update_status_trx');
         Route::post('transaction', 'store');
+        Route::get('transaction/{seller_id}/count', 'count_my_transaction');
     });
 
     Route::controller(PaymentController::class)->group(function() {

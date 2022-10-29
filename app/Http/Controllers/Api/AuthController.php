@@ -30,11 +30,27 @@ class AuthController extends Controller
         }
         $user = User::where('email', $validated['email'])->first();
         $token = $user->createToken($validated['email'])->plainTextToken;
+        $detail = [];
+        switch($user->role_id){
+            case 3:
+                $detail = UserCustomer::where('user_id', $user->id)->first();
+                break;
+            case 3:
+                $detail = UserSeller::where('user_id', $user->id)->first();
+                break;
+            default:
+                return $this->apiError('Error Detail Data!', 422);
+                break;
+        }
+        
+        $address = UserAddress::with('address')->where('user_id', $user->id)->first();
 
         return $this->apiSuccess([
             'token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user
+            'user' => $user,
+            'detail' => $detail,
+            'address' => $address,
         ]);
     }
 

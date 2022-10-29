@@ -28,6 +28,20 @@ class ProductController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function count_my_product($seller_id)
+    {
+        $product = Product::where('user_seller_id', $seller_id)->count();
+        $response = [
+            'count' => $product
+        ];
+        return $this->apiSuccess($response);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

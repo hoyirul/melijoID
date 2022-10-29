@@ -30,6 +30,41 @@ class TransactionController extends Controller
             'transaction' => $headers,
             'detail_transaction' => $details,
         ];
+
+        return $this->apiSuccess($response);
+    }
+
+    public function show_by_seller($seller_id){
+        $headers = HeaderTransaction::with('user_seller')->with('user_customer')->with('promo')
+                        ->where('user_seller_id', $seller_id)->first();
+        
+        if($headers == null){
+            return $this->apiError('No transactions yet!', 422);
+        }
+
+        $details = DetailTransaction::with('product')->where('txid', $headers->txid)->get();
+
+        $response = [
+            'transaction' => $headers,
+            'detail_transaction' => $details,
+        ];
+
+        return $this->apiSuccess($response);
+    }
+
+    public function update_status_trx($txid){
+        HeaderTransaction::where('txid', $txid)->update([
+            'status' => 'waiting'
+        ]);
+        return $this->apiSuccess('Success update data!');
+    }
+
+    public function count_my_transaction($seller_id)
+    {
+        $trx = HeaderTransaction::where('user_seller_id', $seller_id)->count();
+        $response = [
+            'count' => $trx
+        ];
         return $this->apiSuccess($response);
     }
 
