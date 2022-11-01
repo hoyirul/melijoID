@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\DetailTransaction;
+use App\Models\HeaderTransaction;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Traits\ApiResponse;
@@ -96,7 +98,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $response = Product::where('id', $id)->delete();
-        return $this->apiSuccess($response);
+        $trx = DetailTransaction::where('product_id', $id)->first();
+        if($trx != null){
+            return $this->apiError('can`t be deleted, because this product has been transacted!', 422);    
+        }else{
+            ProductImage::where('product_id', $id)->delete();
+            $response = Product::where('id', $id)->delete();
+            return $this->apiSuccess($response);
+        }
     }
 }

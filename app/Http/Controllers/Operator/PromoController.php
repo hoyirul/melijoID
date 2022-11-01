@@ -110,7 +110,7 @@ class PromoController extends Controller
             'promo_title' => 'required|string|max:255',
             'promo_description' => 'required|string',
             'promo_end' => 'required',
-            'promo_total' => 'required|numeric',
+            'promo_total' => 'requsired|numeric',
         ]);
 
         Promo::where('promo_code', $id)->update([
@@ -135,5 +135,4 @@ class PromoController extends Controller
         Promo::where('promo_code', $id)->delete();
         return redirect('/operator/promo')->with('success', 'Data deleted successfully!');
     }
-    //
 }
