@@ -49,6 +49,7 @@
         <a class="collapse-item {{ ($title == 'Role Table') ? 'active' : '' }}" href="/operator/role">Roles</a>
         <a class="collapse-item {{ ($title == 'Category Table') ? 'active' : '' }}" href="/operator/category">Categories</a>
         <a class="collapse-item {{ ($title == 'Unit Table') ? 'active' : '' }}" href="/operator/unit">Units</a>
+        <a class="collapse-item {{ ($title == 'Promo Table') ? 'active' : '' }}" href="/operator/promo">Promos</a>
       </div>
     </div>
   </li>

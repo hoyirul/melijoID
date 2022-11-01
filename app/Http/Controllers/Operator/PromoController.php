@@ -17,8 +17,7 @@ class PromoController extends Controller
     public function index()
     {
         $title = 'Promo Table';
-        $tables = Promo::with('product')
-                        ->get();
+        $tables = Promo::all();
         return view('operators.promos.index', compact([
             'title',
             'tables'
@@ -48,7 +47,7 @@ class PromoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'promo_code' => 'required|string|unique:promos',
+            'promo_code' => 'required|string|unique:promos|min:6',
             'promo_title' => 'required|string|max:255',
             'promo_description' => 'required|string',
             'promo_end' => 'required',
@@ -56,7 +55,7 @@ class PromoController extends Controller
         ]);
 
         Promo::create([
-            'promo_code' => $request->promo_code,
+            'promo_code' => strtoupper($request->promo_code),
             'promo_title' => $request->promo_title,
             'promo_description' => $request->promo_description,
             'promo_end' => $request->promo_end,
@@ -92,7 +91,7 @@ class PromoController extends Controller
     public function edit($id)
     {
         $title = 'Promo Table';
-        $tables = Promo::where('id', $id)->first();
+        $tables = Promo::where('promo_code', $id)->first();
         return view('operators.promos.edit', compact([
             'title', 'tables'
         ]));
@@ -114,7 +113,7 @@ class PromoController extends Controller
             'promo_total' => 'required|numeric',
         ]);
 
-        Promo::where('id', $id)->update([
+        Promo::where('promo_code', $id)->update([
             'promo_title' => $request->promo_title,
             'promo_description' => $request->promo_description,
             'promo_end' => $request->promo_end,
@@ -133,7 +132,7 @@ class PromoController extends Controller
      */
     public function destroy($id)
     {
-        Promo::where('id', $id)->delete();
+        Promo::where('promo_code', $id)->delete();
         return redirect('/operator/promo')->with('success', 'Data deleted successfully!');
     }
     //
