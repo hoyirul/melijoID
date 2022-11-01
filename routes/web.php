@@ -6,6 +6,7 @@ use App\Http\Controllers\Operator\HomeController;
 use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Operator\PaymentController;
 use App\Http\Controllers\Operator\ProductRecipeController;
+use App\Http\Controllers\Operator\PromoController;
 use App\Http\Controllers\Operator\RecipeController;
 use App\Http\Controllers\Operator\RoleController;
 use App\Http\Controllers\Operator\SellerController;
@@ -73,6 +74,7 @@ Route::middleware('auth')->group(function(){
             Route::resource('operator', OperatorController::class);
             Route::resource('customer', CustomerController::class);
             Route::resource('seller', SellerController::class);
+            Route::resource('promo', PromoController::class);
         });
     });
 });
