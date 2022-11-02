@@ -35,7 +35,7 @@ class AuthController extends Controller
             case 3:
                 $detail = UserCustomer::where('user_id', $user->id)->first();
                 break;
-            case 3:
+            case 4:
                 $detail = UserSeller::where('user_id', $user->id)->first();
                 break;
             default:

@@ -96,7 +96,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(UserController::class)->group(function() {
         Route::get('user/{user_id}/profile', 'show_profile');
         Route::put('user/{user_id}/image', 'update_profile_image');
-        Route::put('user/{user_id}/profile', 'update_profile');
+        Route::post('user/{user_id}/profile', 'update_profile');
         Route::get('user/{user_id}/address', 'show_address');
         Route::put('user/{user_id}/address', 'update_address');
     });
