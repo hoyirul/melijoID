@@ -46,14 +46,14 @@ class UserController extends Controller
     public function update_profile_image(UploadProfileRequest $request, $id){
         $validated = $request->validated();
         $user = User::where('id', $id)->first();
-        if(file_exists(storage_path('app/public/'.$user->image))){
+        if($user->image != null && file_exists(storage_path('app/public/'.$user->image))){
             Storage::delete(['public/', $user->image]);
         }
 
         $validated['image'] = $request->file('image')->store('profiles/'.$id, 'public');
         
         User::where('id', $id)->update([
-            'image' => $validated['image'],
+            'image' => ($validated['image'] == null) ? '' : $validated['image'],
         ]);
 
         $response = User::where('id', $id)->first();
