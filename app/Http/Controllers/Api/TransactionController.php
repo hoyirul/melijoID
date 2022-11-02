@@ -35,18 +35,18 @@ class TransactionController extends Controller
     }
 
     public function show_by_seller($seller_id){
-        $headers = HeaderTransaction::with('user_seller')->with('user_customer')->with('promo')
-                        ->where('user_seller_id', $seller_id)->first();
+        $headers = DetailTransaction::join('header_transactions', 'header_transactions.txid', '=', 'detail_transactions.txid')
+                        ->join('products', 'detail_transactions.product_id', '=', 'products.id')
+                        ->join('product_images', 'products.id', '=', 'product_images.product_id')
+                        ->where('product_images.carousel', 1)
+                        ->where('header_transactions.user_seller_id', $seller_id)->get();
         
         if($headers == null){
             return $this->apiError('No transactions yet!', 422);
         }
 
-        $details = DetailTransaction::with('product')->where('txid', $headers->txid)->get();
-
         $response = [
             'transaction' => $headers,
-            'detail_transaction' => $details,
         ];
 
         return $this->apiSuccess($response);
