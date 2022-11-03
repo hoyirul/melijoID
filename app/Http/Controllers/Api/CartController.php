@@ -14,8 +14,15 @@ class CartController extends Controller
 
     public function index($customer_id)
     {
-        $response = Cart::with('product')->with('user_customer')
+        // ProductImage::join('products', 'product_images.product_id', '=', 'products.id')
+        //                 ->where('products.user_seller_id', $id)
+        //                 ->where('carousel', 1)
+        //                 ->get();
+        $response = Cart::with('user_customer')
+                     ->join('products', 'products.id', '=', 'carts.product_id')
+                     ->join('product_images', 'product_images.product_id', '=', 'products.id')
                      ->where('user_customer_id', $customer_id)
+                     ->where('product_images.carousel', 1)
                      ->get();
         return $this->apiSuccess($response);
     }
