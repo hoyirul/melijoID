@@ -7,6 +7,7 @@ use App\Http\Requests\TransactionRequest;
 use App\Models\Cart;
 use App\Models\DetailTransaction;
 use App\Models\HeaderTransaction;
+use App\Models\Product;
 use App\Traits\ApiResponse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -98,6 +99,30 @@ class TransactionController extends Controller
             'transaction' => $headers,
             'detail_transaction' => $details,
         ];
+        return $this->apiSuccess($response);
+    }
+
+    public function show($txid){
+        $headers = DetailTransaction::with('header_transaction')
+                        ->where('txid', $txid)->first();
+                        
+        $details = DetailTransaction::join('products', 'products.id', '=', 'detail_transactions.product_id')
+                        ->join('product_images', 'product_images.product_id', '=', 'products.id')
+                        ->where('txid', $txid)
+                        ->where('product_images.carousel', 1)
+                        ->get();
+        
+        if($headers == null){
+            return $this->apiError('No transactions yet!', 422);
+        }
+
+        // $details = DetailTransaction::with('product')->where('txid', $headers->txid)->get();
+
+        $response = [
+            'transaction' => $headers,
+            'detail_transaction' => $details,
+        ];
+
         return $this->apiSuccess($response);
     }
 }
