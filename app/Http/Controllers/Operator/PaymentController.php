@@ -14,7 +14,7 @@ class PaymentController extends Controller
         $title = 'Payment Table';
         $tables = Payment::with('header_transaction')
                         ->get();
-        return view('operators.payments.index', compact([
+        return view('operators.payments.inde x', compact([
             'title',
             'tables'
         ]));

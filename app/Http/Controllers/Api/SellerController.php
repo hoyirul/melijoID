@@ -15,7 +15,9 @@ class SellerController extends Controller
     use ApiResponse;
 
     public function index($ward){
-        $response = UserSeller::join('users', 'users.id', '=', 'user_sellers.user_id')
+        // 'user_sellers.id as seller_id, user_sellers.user_id, user_sellers.name, user_sellers.phone, users.username, users.email, users.role_id, users.fcm_token, users.image, addresses.id as addresses_id, addresses.province, addresses.city, addresses.districts, addresses.ward'
+        $response = UserSeller::select(['user_sellers.id as seller_id', 'user_sellers.user_id', 'user_sellers.name', 'user_sellers.phone', 'users.username', 'users.email', 'users.role_id', 'users.fcm_token', 'users.image', 'addresses.id as addresses_id', 'addresses.province', 'addresses.city', 'addresses.districts', 'addresses.ward'])
+                    ->join('users', 'users.id', '=', 'user_sellers.user_id')
                     ->join('user_addresses', 'user_addresses.user_id', '=', 'users.id')
                     ->join('addresses', 'user_addresses.addresses_id', '=', 'addresses.id')
                     ->where('addresses.ward', $ward)
