@@ -61,9 +61,15 @@ Route::middleware('auth')->group(function(){
         });
 
         Route::controller(PaymentController::class)->group(function() {
-            Route::get('/payment', 'index');
-            Route::get('/payment/{status}', 'show_by_status');
-            Route::put('/payment/{status}/{id}', 'update_by_id_status');
+            Route::get('/payment/all', 'index');
+            Route::get('/payment/paid', 'paid');
+            Route::get('/payment/unpaid', 'unpaid');
+            Route::get('/payment/processing', 'processing');
+            Route::get('/payment/waiting', 'waiting');
+            Route::get('/payment/{txid}/paid', 'paid_put');
+            Route::get('/payment/{txid}/unpaid', 'unpaid_put');
+            Route::get('/payment/{txid}/processing', 'processing_put');
+            Route::get('/payment/{txid}/waiting', 'waiting_put');
         });
 
         Route::middleware('isSuperadmin')->group(function(){

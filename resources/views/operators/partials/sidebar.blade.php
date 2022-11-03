@@ -102,6 +102,7 @@
         <a class="collapse-item" href="/operator/payment/paid">Paid</a>
         <a class="collapse-item" href="/operator/payment/unpaid">Unpaid</a>
         <a class="collapse-item" href="/operator/payment/processing">Processing</a>
+        <a class="collapse-item" href="/operator/payment/waiting">Waiting</a>
         <div class="collapse-divider"></div>
         <h6 class="collapse-header">All Payments:</h6>
         <a class="collapse-item" href="/operator/payment/all">Payments</a>
