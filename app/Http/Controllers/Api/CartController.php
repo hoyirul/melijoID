@@ -18,7 +18,7 @@ class CartController extends Controller
         //                 ->where('products.user_seller_id', $id)
         //                 ->where('carousel', 1)
         //                 ->get();
-        $response = Cart::with('user_customer')
+        $response = Cart::select(['carts.id as cart_id', 'carts.product_id', 'carts.user_customer_id', 'carts.quantity', 'products.user_seller_id as user_seller_id', 'products.id as category_id', 'products.id as unit_id', 'products.product_name', 'products.price', 'products.stock', 'products.description', 'product_images.image', 'product_images.carousel'])
                      ->join('products', 'products.id', '=', 'carts.product_id')
                      ->join('product_images', 'product_images.product_id', '=', 'products.id')
                      ->where('user_customer_id', $customer_id)
