@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('evidence_of_transfer')->nullable();
             $table->timestamp('paid_date')->nullable();
             $table->float('pay', 12,2)->nullable();
-            $table->enum('status', ['unpaid', 'processing', 'paid'])->default('unpaid');
+            $table->enum('status', ['unpaid', 'processing', 'paid', 'waiting', 'canceled'])->default('unpaid');
             $table->timestamps();
         });
     }

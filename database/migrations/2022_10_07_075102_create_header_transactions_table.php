@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('user_operator_id')->nullable()->constrained();
             $table->timestamp('date_order')->nullable();
             $table->float('total', 12,2)->nullable();
-            $table->enum('status', ['unpaid', 'processing', 'paid', 'waiting'])->default('unpaid');
+            $table->enum('status', ['unpaid', 'processing', 'paid', 'waiting', 'canceled'])->default('unpaid');
             $table->timestamps();
         });
     }

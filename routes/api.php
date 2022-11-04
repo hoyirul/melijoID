@@ -66,6 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(TransactionController::class)->group(function() {
         Route::get('transaction/{customer_id}', 'index');
         Route::put('transaction/{txid}/confirmation', 'update_status_trx');
+        Route::put('transaction/{txid}/canceled', 'update_status_canceled');
         Route::post('transaction', 'store');
         Route::get('transaction/{txid}/detail', 'show');
         Route::get('user_seller/{seller_id}/transaction', 'show_by_seller');

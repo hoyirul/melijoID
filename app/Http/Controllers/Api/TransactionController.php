@@ -7,6 +7,7 @@ use App\Http\Requests\TransactionRequest;
 use App\Models\Cart;
 use App\Models\DetailTransaction;
 use App\Models\HeaderTransaction;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Traits\ApiResponse;
 use Carbon\Carbon;
@@ -59,6 +60,23 @@ class TransactionController extends Controller
         HeaderTransaction::where('txid', $txid)->update([
             'status' => 'waiting'
         ]);
+
+        Payment::where('txid', $txid)->update([
+            'status' => 'waiting'
+        ]);
+
+        return $this->apiSuccess('Success update data!');
+    }
+
+    public function update_status_canceled($txid){
+        HeaderTransaction::where('txid', $txid)->update([
+            'status' => 'canceled'
+        ]);
+
+        Payment::where('txid', $txid)->update([
+            'status' => 'canceled'
+        ]);
+
         return $this->apiSuccess('Success update data!');
     }
 
