@@ -13,13 +13,13 @@ class RecipeController extends Controller
 
     public function index()
     {
-        $response = Recipe::all();
+        $response = Recipe::with('recipe_category')->get();
         return $this->apiSuccess($response);
     }
 
     public function show($id)
     {
-        $response = Recipe::where('id', $id)->first();
+        $response = Recipe::with('recipe_category')->where('id', $id)->first();
         return $this->apiSuccess($response);
     }
 }

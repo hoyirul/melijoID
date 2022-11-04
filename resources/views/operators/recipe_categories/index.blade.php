@@ -5,7 +5,7 @@
   <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">{{ $title }}</h1>
   <p class="mb-4 float-left">Opertaor / Master / <span class="text-primary">{{ $title }}</span></p>
-  <a href="/operator/recipe/create" class="btn btn-primary btn-md float-right"><i class="fa fa-plus mr-1"></i> Add Data</a>
+  <a href="/operator/recipe_category/create" class="btn btn-primary btn-md float-right"><i class="fa fa-plus mr-1"></i> Add Data</a>
   <br><br>
   <!-- DataTales Example -->
   @if(session('success'))
@@ -28,9 +28,7 @@
           <thead>
             <tr>
               <th width="20px">#</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Image</th>
+              <th>Category Name</th>
               <th>Created At</th>
               <th>Action</th>
             </tr>
@@ -39,23 +37,14 @@
             @foreach ($tables as $item)
               <tr>
                 <td class="text-center">{{ $loop->iteration }}</td>
-                <td>{{ $item->recipe_title }}</td>
-                <td>{{ $item->recipe_category->recipe_category_name }}</td>
-                <td class="text-center">
-                  <a href="{{ asset('storage/'.$item->image) }}" target="_blank">show</a>
-                </td>
+                <td>{{ $item->recipe_category_name }}</td>
                 <td>{{ $item->created_at }}</td>
                 <td>
-                  <form action="/operator/recipe/{{ $item->id }}" onsubmit="return confirm('Are you sure to delete data?')" method="post">
+                  <form action="/operator/recipe_category/{{ $item->id }}" onsubmit="return confirm('Are you sure to delete data?')" method="post">
                     @csrf
                     @method('DELETE')
   
-                    <a href="/operator/product_recipe/{{ $item->id }}/show" class="btn btn-sm btn-info">
-                      <span class="fa fa-fw fa-plus-circle mx-1"></span>
-                      Product Recom
-                    </a>
-
-                    <a href="/operator/recipe/{{ $item->id }}/edit" class="btn btn-sm btn-info">
+                    <a href="/operator/recipe_category/{{ $item->id }}/edit" class="btn btn-sm btn-info">
                       <span class="fa fa-fw fa-edit mx-1"></span>
                       Edit
                     </a>

@@ -61,11 +61,12 @@
     <i class="fas fa-fw fa-list"></i>
     <span>Recipes</span>
     </a>
-    <div id="collapseRecipes" class="collapse {{ ($title == 'Recipe Table' || $title == 'Product Recipe Table') ? 'show' : '' }}" aria-labelledby="headingUtilities"
+    <div id="collapseRecipes" class="collapse {{ ($title == 'Recipe Table' || $title == 'Recipe Category Table') ? 'show' : '' }}" aria-labelledby="headingUtilities"
       data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Master Recipes:</h6>
         <a class="collapse-item {{ ($title == 'Recipe Table') ? 'active' : '' }}" href="/operator/recipe">Recipes</a>
+        <a class="collapse-item {{ ($title == 'Recipe Category Table') ? 'active' : '' }}" href="/operator/recipe_category">Recipe Categories</a>
       </div>
     </div>
   </li>
@@ -82,10 +83,10 @@
     <i class="fas fa-fw fa-folder"></i>
     <span>Transactions</span>
     </a>
-    <div id="collapseTransaction" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+    <div id="collapseTransaction" class="collapse {{ ($title == 'Transaction Table') ? 'show' : '' }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">All Transaction:</h6>
-        <a class="collapse-item" href="/operator/transaction">Transactions</a>
+        <a class="collapse-item {{ ($title == 'Transaction Table') ? 'active' : '' }}" href="/operator/transaction">Transactions</a>
       </div>
     </div>
   </li>
@@ -96,16 +97,16 @@
     <i class="fas fa-fw fa-chart-pie"></i>
     <span>Payments</span>
     </a>
-    <div id="collapsePayment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+    <div id="collapsePayment" class="collapse {{ ($title == 'Payment All Table' || $title == 'Payment Table (Paid)' || $title == 'Payment Table (Unpaid)' || $title == 'Payment Table (Processing)' || $title == 'Payment Table (Waiting)') ? 'show' : '' }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Status Payments:</h6>
-        <a class="collapse-item" href="/operator/payment/paid">Paid</a>
-        <a class="collapse-item" href="/operator/payment/unpaid">Unpaid</a>
-        <a class="collapse-item" href="/operator/payment/processing">Processing</a>
-        <a class="collapse-item" href="/operator/payment/waiting">Waiting</a>
+        <a class="collapse-item {{ ($title == 'Payment Table (Paid)') ? 'active' : '' }}" href="/operator/payment/paid">Paid</a>
+        <a class="collapse-item {{ ($title == 'Payment Table (Unpaid)') ? 'active' : '' }}" href="/operator/payment/unpaid">Unpaid</a>
+        <a class="collapse-item {{ ($title == 'Payment Table (Processing)') ? 'active' : '' }}" href="/operator/payment/processing">Processing</a>
+        <a class="collapse-item {{ ($title == 'Payment Table (Waiting)') ? 'active' : '' }}" href="/operator/payment/waiting">Waiting</a>
         <div class="collapse-divider"></div>
         <h6 class="collapse-header">All Payments:</h6>
-        <a class="collapse-item" href="/operator/payment/all">Payments</a>
+        <a class="collapse-item {{ ($title == 'Payment All Table') ? 'active' : '' }}" href="/operator/payment/all">Payments</a>
       </div>
     </div>
   </li>

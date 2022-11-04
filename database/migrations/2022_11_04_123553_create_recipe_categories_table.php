@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('recipe_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('recipe_title', 100);
-            $table->text('step')->nullable();
-            $table->text('image')->nullable();
+            $table->string('recipe_category_name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('recipe_categories');
     }
 };

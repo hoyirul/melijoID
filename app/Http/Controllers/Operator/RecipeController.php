@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
 use App\Models\Recipe;
+use App\Models\RecipeCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -16,7 +18,7 @@ class RecipeController extends Controller
     public function index()
     {
         $title = 'Recipe Table';
-        $tables = Recipe::all();
+        $tables = Recipe::with('recipe_category')->get();
         return view('operators.recipes.index', compact([
             'title',
             'tables'
@@ -31,8 +33,9 @@ class RecipeController extends Controller
     public function create()
     {
         $title = 'Recipe Table';
+        $categories = RecipeCategory::all();
         return view('operators.recipes.create', compact([
-            'title'
+            'title', 'categories'
         ]));
     }
 
@@ -46,14 +49,20 @@ class RecipeController extends Controller
     {
         $request->validate([
             'recipe_title' => 'required',
-            'recipe_level' => 'required',
+            'recipe_category_id' => 'required',
             'step' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if($request->image != null){
+            $image = $request->file('image')->store('recipes', 'public');
+        }
 
         Recipe::create([
             'recipe_title' => $request->recipe_title,
-            'recipe_level' => $request->recipe_level,
+            'recipe_category_id' => $request->recipe_category_id,
             'step' => $request->step,
+            'image' => $image,
         ]);
 
         return redirect()->to('/operator/recipe')
@@ -69,10 +78,12 @@ class RecipeController extends Controller
     public function show($id)
     {
         $title = 'Recipe Table';
-        $tables = Recipe::where('id', $id)->first();
+        $categories = RecipeCategory::all();
+        $tables = Recipe::with('recipe_category')->where('id', $id)->first();
         return view('operators.recipes.show', compact([
             'title',
-            'tables'
+            'tables',
+            'categories'
         ]));
     }
 
@@ -85,9 +96,10 @@ class RecipeController extends Controller
     public function edit($id)
     {
         $title = 'Recipe Table';
-        $tables = Recipe::where('id', $id)->first();
+        $categories = RecipeCategory::all();
+        $tables = Recipe::with('recipe_category')->where('id', $id)->first();
         return view('operators.recipes.edit', compact([
-            'title', 'tables'
+            'title', 'tables', 'categories'
         ]));
     }
 
@@ -102,14 +114,28 @@ class RecipeController extends Controller
     {
         $request->validate([
             'recipe_title' => 'required',
-            'recipe_level' => 'required',
+            'recipe_category_id' => 'required',
             'step' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $tables = Recipe::where('id', $id)->first();
+
+        $image = null;
+
+        if($tables->image && file_exists(storage_path('app/public/'. $tables->image))){
+            Storage::delete(['public/', $tables->image]);
+        }
+
+        if($request->image != null){
+            $image = $request->file('image')->store('recipes', 'public');
+        }
 
         Recipe::where('id', $id)->update([
             'recipe_title' => $request->recipe_title,
-            'recipe_level' => $request->recipe_level,
+            'recipe_category_id' => $request->recipe_category_id,
             'step' => $request->step,
+            'image' => $image,
         ]);
 
         return redirect()->to('/operator/recipe')

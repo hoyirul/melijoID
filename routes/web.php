@@ -7,6 +7,7 @@ use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Operator\PaymentController;
 use App\Http\Controllers\Operator\ProductRecipeController;
 use App\Http\Controllers\Operator\PromoController;
+use App\Http\Controllers\Operator\RecipeCategoryController;
 use App\Http\Controllers\Operator\RecipeController;
 use App\Http\Controllers\Operator\RoleController;
 use App\Http\Controllers\Operator\SellerController;
@@ -75,6 +76,7 @@ Route::middleware('auth')->group(function(){
         Route::middleware('isSuperadmin')->group(function(){
             Route::resource('role', RoleController::class);
             Route::resource('category', CategoryController::class);
+            Route::resource('recipe_category', RecipeCategoryController::class);
             Route::resource('unit', UnitController::class);
 
             Route::resource('operator', OperatorController::class);

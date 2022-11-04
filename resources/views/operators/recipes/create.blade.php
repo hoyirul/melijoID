@@ -13,7 +13,7 @@
       <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
     </div>
     <div class="card-body">
-      <form action="/operator/recipe" method="post">
+      <form action="/operator/recipe" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group row">
           <div class="col-md-6">
@@ -27,13 +27,29 @@
           </div>  
           
           <div class="col-md-6">
-            <label for="recipe_level">Recipe Level : </label>
-            <select name="recipe_level" id="recipe_title" class="form-control">
-              <option value="mudah">Mudah</option>
-              <option value="sedang">Sedang</option>
-              <option value="sulit">Sulit</option>
+            <label for="recipe_category_id">Recipe Category : </label>
+            <select name="recipe_category_id" id="recipe_category_id" class="form-control">
+              @if ($categories->count() > 0)
+                @foreach ($categories as $item)
+                  <option value="{{ $item->id }}">{{ $item->recipe_category_name }}</option>
+                @endforeach
+              @else
+                <option value="#" disabled selected>No category yet!</option>
+              @endif
             </select>
             @error('recipe_title')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+          </div>  
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label for="image">Image : </label>
+            <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" placeholder="Recipe Title" value="{{ old('image') }}">
+            @error('image')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>

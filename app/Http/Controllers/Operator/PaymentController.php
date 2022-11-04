@@ -11,10 +11,10 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $title = 'Payment Table';
+        $title = 'Payment All Table';
         $tables = Payment::with('header_transaction')
                         ->get();
-        return view('operators.payments.inde x', compact([
+        return view('operators.payments.index', compact([
             'title',
             'tables'
         ]));
@@ -22,7 +22,7 @@ class PaymentController extends Controller
 
     public function paid()
     {
-        $title = 'Payment Table';
+        $title = 'Payment Table (Paid)';
         $tables = Payment::with('header_transaction')
                         ->where('status', 'paid')
                         ->get();
@@ -34,7 +34,7 @@ class PaymentController extends Controller
 
     public function unpaid()
     {
-        $title = 'Payment Table';
+        $title = 'Payment Table (Unpaid)';
         $tables = Payment::with('header_transaction')
                         ->where('status', 'unpaid')
                         ->get();
@@ -46,7 +46,7 @@ class PaymentController extends Controller
 
     public function processing()
     {
-        $title = 'Payment Table';
+        $title = 'Payment Table (Processing)';
         $tables = Payment::with('header_transaction')
                         ->where('status', 'processing')
                         ->get();
@@ -58,7 +58,7 @@ class PaymentController extends Controller
 
     public function waiting()
     {
-        $title = 'Payment Table';
+        $title = 'Payment Table (Waiting)';
         $tables = Payment::with('header_transaction')
                         ->where('status', 'waiting')
                         ->get();

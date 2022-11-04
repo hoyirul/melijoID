@@ -27,7 +27,7 @@ class RecipeRequest extends FormRequest
     {
         return [
             'recipe_title' => 'required|string|max:255',
-            'recipe_level' => 'required|string',
+            'recipe_category_id' => 'required|string',
             'step' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ];

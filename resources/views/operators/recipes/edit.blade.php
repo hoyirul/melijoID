@@ -13,7 +13,7 @@
       <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
     </div>
     <div class="card-body">
-      <form action="/operator/recipe/{{ $tables->id }}" method="post">
+      <form action="/operator/recipe/{{ $tables->id }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         
@@ -29,13 +29,29 @@
           </div>  
           
           <div class="col-md-6">
-            <label for="recipe_level">Recipe Level : </label>
-            <select name="recipe_level" id="recipe_title" class="form-control">
-              <option value="mudah" {{ ($tables->recipe_level == 'mudah') ? 'selected' : '' }}>Mudah</option>
-              <option value="sedang" {{ ($tables->recipe_level == 'sedang') ? 'selected' : '' }}>Sedang</option>
-              <option value="sulit" {{ ($tables->recipe_level == 'sulit') ? 'selected' : '' }}>Sulit</option>
+            <label for="recipe_category_id">Recipe Category : </label>
+            <select name="recipe_category_id" id="recipe_category_id" class="form-control">
+              @if ($categories->count() > 0)
+                @foreach ($categories as $item)
+                  <option value="{{ $item->id }}" {{ ($tables->recipe_category_id == $item->id) }}>{{ $item->recipe_category_name }}</option>
+                @endforeach
+              @else
+                <option value="#" disabled selected>No category yet!</option>
+              @endif
             </select>
-            @error('recipe_title')
+            @error('recipe_category_id')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+          </div>  
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label for="image">Image : </label>
+            <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" placeholder="Recipe Title" value="{{ old('image') }}">
+            @error('image')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
