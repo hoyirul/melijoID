@@ -74,7 +74,8 @@ class TransactionController extends Controller
             'user_operator_id' => ($validated['user_operator_id'] == null) ? null : $validated['user_operator_id'],
             'promo_code' => ($validated['promo_code'] == null) ? null : $validated['promo_code'],
             'date_order' => $validated['date_order'],
-            'total' => $validated['total']
+            'total' => $validated['total'],
+            'information' => $validated['information'],
         ]);
 
         $carts = Cart::with('product')->where('user_customer_id', $validated['user_customer_id'])->get();

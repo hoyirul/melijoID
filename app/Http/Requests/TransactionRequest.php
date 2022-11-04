@@ -32,6 +32,7 @@ class TransactionRequest extends FormRequest
             'promo_code' => 'nullable|string',
             'date_order' => 'required',
             'total' => 'required',
+            'information' => 'nullable|string',
         ];
     }
 

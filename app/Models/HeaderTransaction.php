@@ -10,7 +10,7 @@ class HeaderTransaction extends Model
     use HasFactory;
 
     protected $primaryKey = 'txid';
-    protected $fillable = ['txid', 'user_customer_id', 'user_seller_id', 'user_operator_id', 'promo_code', 'date_order', 'total', 'status'];
+    protected $fillable = ['txid', 'user_customer_id', 'user_seller_id', 'user_operator_id', 'promo_code', 'date_order', 'total', 'information', 'status'];
     public $incrementing = false;
 
     public function user_customer(){
