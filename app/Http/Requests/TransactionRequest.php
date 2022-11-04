@@ -30,6 +30,7 @@ class TransactionRequest extends FormRequest
             'user_seller_id' => 'required',
             'user_operator_id' => 'nullable',
             'promo_code' => 'nullable|string',
+            'date_order' => 'required',
             'total' => 'required',
         ];
     }

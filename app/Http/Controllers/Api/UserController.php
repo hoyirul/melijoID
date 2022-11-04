@@ -26,7 +26,7 @@ class UserController extends Controller
             case 3:
                 $detail = UserCustomer::where('user_id', $user->id)->first();
                 break;
-            case 3:
+            case 4:
                 $detail = UserSeller::where('user_id', $user->id)->first();
                 break;
             default:
@@ -61,28 +61,46 @@ class UserController extends Controller
         return $this->apiSuccess($response);
     }
 
-    public function update_profile(UserRequest $request, $id)
+    public function update_profile(Request $request, $id)
     {
-        $validated = $request->validated();
-        User::where('id', $id)->update([
-            'username' => $validated['username'],
-            'email' => $validated['email'],
+
+        $request->validate([
+            // 'username' => 'required|unique:users|string|max:255',
+            // 'email' => 'required|unique:users|string|max:255|email',
+            'name' => 'required|string|max:50',
+            'phone' => 'required|string|max:20',
         ]);
+
+
+        $arrays = User::where('id', $id)->first();
+        $username = User::where('username', $request->username)->first();
+
+        if($arrays->username != $request->username){
+            if($username != null){
+                return $this->apiError('Username sudah digunakan!', 422);
+            }
+        }
+
+        User::where('id', $id)->update([
+            'username' => ($arrays->username == $request->username) ? $arrays->username : $request->username,
+            // 'email' => $validated['email'],
+        ]);
+
         $user = User::where('id', $id)->first();
 
         $detail = [];
         switch($user->role_id){
             case 3:
                 UserCustomer::where('user_id', $id)->update([
-                    'name' => $validated['name'],
-                    'phone' => $validated['phone'],
+                    'name' => $request->name,
+                    'phone' => $request->phone,
                 ]);
                 $detail = UserCustomer::where('user_id', $user->id)->first();
                 break;
-            case 3:
+            case 4:
                 UserSeller::where('user_id', $id)->update([
-                    'name' => $validated['name'],
-                    'phone' => $validated['phone'],
+                    'name' => $request->name,
+                    'phone' => $request->phone,
                 ]);
                 $detail = UserSeller::where('user_id', $user->id)->first();
                 break;

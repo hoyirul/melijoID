@@ -73,7 +73,7 @@ class TransactionController extends Controller
             'user_seller_id' => $validated['user_seller_id'],
             'user_operator_id' => ($validated['user_operator_id'] == null) ? null : $validated['user_operator_id'],
             'promo_code' => ($validated['promo_code'] == null) ? null : $validated['promo_code'],
-            'date_order' => Carbon::now(),
+            'date_order' => $validated['date_order'],
             'total' => $validated['total']
         ]);
 
