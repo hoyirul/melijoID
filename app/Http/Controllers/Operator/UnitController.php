@@ -117,7 +117,12 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        Unit::where('id', $id)->delete();
-        return redirect('/operator/unit')->with('success', 'Data deleted successfully!');
+        $unit = Unit::withCount('product')->where('id', $id)->first();
+        if($unit->count() > 0){
+            return redirect('/operator/unit')->with('danger', 'This unit ('.$unit->unit_name.') is still used by product!');
+        }else{
+            Unit::where('id', $id)->delete();
+            return redirect('/operator/unit')->with('success', 'Data deleted successfully!');
+        }
     }
 }

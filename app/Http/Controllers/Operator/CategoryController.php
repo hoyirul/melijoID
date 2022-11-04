@@ -117,7 +117,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::where('id', $id)->delete();
-        return redirect('/operator/category')->with('success', 'Data deleted successfully!');
+        $category = Category::withCount('product')->where('id', $id)->first();
+        if($category->count() > 0){
+            return redirect('/operator/category')->with('danger', 'This category ('.$category->category_name.') is still used by product!');
+        }else{
+            Category::where('id', $id)->delete();
+            return redirect('/operator/category')->with('success', 'Data deleted successfully!');
+        }
     }
 }

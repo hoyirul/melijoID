@@ -73,16 +73,16 @@ Route::middleware('auth')->group(function(){
             Route::get('/payment/{txid}/waiting', 'waiting_put');
         });
 
+        Route::resource('promo', PromoController::class);
+        Route::resource('category', CategoryController::class);
+        Route::resource('recipe_category', RecipeCategoryController::class);
+        Route::resource('unit', UnitController::class);
+
         Route::middleware('isSuperadmin')->group(function(){
             Route::resource('role', RoleController::class);
-            Route::resource('category', CategoryController::class);
-            Route::resource('recipe_category', RecipeCategoryController::class);
-            Route::resource('unit', UnitController::class);
-
             Route::resource('operator', OperatorController::class);
             Route::resource('customer', CustomerController::class);
             Route::resource('seller', SellerController::class);
-            Route::resource('promo', PromoController::class);
         });
     });
 });

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
+use App\Models\HeaderTransaction;
 use App\Models\Promo;
+use GuzzleHttp\Psr7\Header;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -132,7 +134,12 @@ class PromoController extends Controller
      */
     public function destroy($id)
     {
-        Promo::where('promo_code', $id)->delete();
-        return redirect('/operator/promo')->with('success', 'Data deleted successfully!');
+        $promo = HeaderTransaction::with('promo')->where('promo_code', $id)->first();
+        if($promo->count() > 0){
+            return redirect('/operator/promo')->with('danger', 'This promo ('.$promo->promo->promo_title.') is still used by transaction!');
+        }else{
+            Promo::where('promo_code', $id)->delete();
+            return redirect('/operator/promo')->with('success', 'Data deleted successfully!');
+        }
     }
 }

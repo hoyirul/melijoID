@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use Illuminate\Http\Request;
 
@@ -116,7 +117,12 @@ class RecipeCategoryController extends Controller
      */
     public function destroy($id)
     {
-        RecipeCategory::where('id', $id)->delete();
-        return redirect('/operator/recipe_category')->with('success', 'Data deleted successfully!');
+        $recipe = RecipeCategory::withCount('recipe')->where('id', $id)->first();
+        if($recipe->count() > 0){
+            return redirect('/operator/recipe_category')->with('danger', 'This category ('.$recipe->recipe_category_name.') is still used by recipes!');
+        }else{
+            RecipeCategory::where('id', $id)->delete();
+            return redirect('/operator/recipe_category')->with('success', 'Data deleted successfully!');
+        }
     }
 }

@@ -16,6 +16,6 @@ class Promo extends Model
     ];
 
     public function header_transaction(){
-        $this->hasMany(HeaderTransaction::class);
+        $this->hasMany(HeaderTransaction::class, 'promo_code', 'promo_code');
     }
 }

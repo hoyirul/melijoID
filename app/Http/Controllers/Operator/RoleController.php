@@ -117,7 +117,12 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::where('id', $id)->delete();
-        return redirect('/operator/role')->with('success', 'Data deleted successfully!');
+        $role = Role::withCount('user')->where('id', $id)->first();
+        if($role->count() > 0){
+            return redirect('/operator/role')->with('danger', 'This role ('.$role->role_name.') is still used by user!');
+        }else{
+            Role::where('id', $id)->delete();
+            return redirect('/operator/role')->with('success', 'Data deleted successfully!');
+        }
     }
 }

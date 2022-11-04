@@ -29,6 +29,7 @@
             <tr>
               <th width="20px">#</th>
               <th>Category</th>
+              <th>Product</th>
               <th>Created At</th>
               <th>Action</th>
             </tr>
@@ -38,6 +39,7 @@
               <tr>
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td>{{ $item->category_name }}</td>
+                <td class="text-center">{{ $item->product->count() }}</td>
                 <td>{{ $item->created_at }}</td>
                 <td>
                   <form action="/operator/category/{{ $item->id }}" onsubmit="return confirm('Are you sure to delete data?')" method="post">

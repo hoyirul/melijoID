@@ -21,32 +21,36 @@
     Masters
   </div>
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
-      aria-expanded="true" aria-controls="collapseUsers">
-    <i class="fas fa-fw fa-users"></i>
-    <span>Users Data</span>
-    </a>
-    <div id="collapseUsers" class="collapse {{ ($title == 'Operator Table' || $title == 'Customer Table' || $title == 'Seller Table') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Master Data</h6>
-        <a class="collapse-item {{ ($title == 'Operator Table') ? 'active' : '' }}" href="/operator/operator">Operators</a>
-        <a class="collapse-item {{ ($title == 'Customer Table') ? 'active' : '' }}" href="/operator/customer">Customers</a>
-        <a class="collapse-item {{ ($title == 'Seller Table') ? 'active' : '' }}" href="/operator/seller">Sellers</a>
+  @if (Auth::user()->role_id == 1)
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
+        aria-expanded="true" aria-controls="collapseUsers">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Users Data</span>
+      </a>
+      <div id="collapseUsers" class="collapse {{ ($title == 'Operator Table' || $title == 'Customer Table' || $title == 'Seller Table') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Master Data</h6>
+          <a class="collapse-item {{ ($title == 'Operator Table') ? 'active' : '' }}" href="/operator/operator">Operators</a>
+          <a class="collapse-item {{ ($title == 'Customer Table') ? 'active' : '' }}" href="/operator/customer">Customers</a>
+          <a class="collapse-item {{ ($title == 'Seller Table') ? 'active' : '' }}" href="/operator/seller">Sellers</a>
+        </div>
       </div>
-    </div>
-  </li>
-
+    </li>  
+  @endif
+  
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
       aria-expanded="true" aria-controls="collapseTwo">
     <i class="fas fa-fw fa-cog"></i>
     <span>Components</span>
     </a>
-    <div id="collapseTwo" class="collapse {{ ($title == 'Role Table' || $title == 'Category Table' || $title == 'Unit Table') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div id="collapseTwo" class="collapse {{ ($title == 'Role Table' || $title == 'Category Table' || $title == 'Promo Table' || $title == 'Unit Table') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Master Data</h6>
-        <a class="collapse-item {{ ($title == 'Role Table') ? 'active' : '' }}" href="/operator/role">Roles</a>
+        @if (Auth::user()->role_id == 1)
+          <a class="collapse-item {{ ($title == 'Role Table') ? 'active' : '' }}" href="/operator/role">Roles</a>
+        @endif
         <a class="collapse-item {{ ($title == 'Category Table') ? 'active' : '' }}" href="/operator/category">Categories</a>
         <a class="collapse-item {{ ($title == 'Unit Table') ? 'active' : '' }}" href="/operator/unit">Units</a>
         <a class="collapse-item {{ ($title == 'Promo Table') ? 'active' : '' }}" href="/operator/promo">Promos</a>
