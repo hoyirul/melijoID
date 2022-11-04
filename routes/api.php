@@ -58,9 +58,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(CartController::class)->group(function() {
         Route::get('cart/{customer_id}', 'index');
         Route::post('cart', 'store');
-        Route::get('cart/{id}', 'show');
-        Route::put('cart/{id}', 'update');
-        Route::delete('cart/{id}', 'destroy');
+        Route::get('cart/{id}/show', 'show');
+        Route::put('cart/{id}/update', 'update');
+        Route::delete('cart/{id}/destroy', 'destroy');
     });
 
     Route::controller(TransactionController::class)->group(function() {
