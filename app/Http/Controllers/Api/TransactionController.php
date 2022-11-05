@@ -110,7 +110,8 @@ class TransactionController extends Controller
             ]);
         }
 
-        Cart::where('user_customer_id', $validated['user_customer_id'])->delete();
+        Cart::where('user_customer_id', $validated['user_customer_id'])
+            ->whereIn('id', json_decode($validated['cart_id']))->delete();
 
         $headers = HeaderTransaction::with('user_seller')->with('user_customer')->with('promo')
                         ->where('user_customer_id', $validated['user_customer_id'])->first();
