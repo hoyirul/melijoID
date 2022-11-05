@@ -38,6 +38,20 @@
       </div>
     </li>  
   @endif
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePlottings"
+      aria-expanded="true" aria-controls="collapsePlottings">
+    <i class="fas fa-fw fa-check"></i>
+    <span>Setting Plot</span>
+    </a>
+    <div id="collapsePlottings" class="collapse {{ ($title == 'Plotting Table') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Plot Buyer</h6>
+        <a class="collapse-item {{ ($title == 'Plotting Table') ? 'active' : '' }}" href="/operator/plotting">Plotting</a>
+      </div>
+    </div>
+  </li>  
   
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

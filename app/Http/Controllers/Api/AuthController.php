@@ -8,6 +8,7 @@ use App\Http\Requests\FcmTokenRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Address;
+use App\Models\Plotting;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Models\UserCustomer;
@@ -44,6 +45,7 @@ class AuthController extends Controller
         }
         
         $address = UserAddress::with('address')->where('user_id', $user->id)->first();
+        $plottings = Plotting::where('user_customer_id', $detail->id)->first();
 
         return $this->apiSuccess([
             'token' => $token,
@@ -51,6 +53,7 @@ class AuthController extends Controller
             'user' => $user,
             'detail' => $detail,
             'address' => $address,
+            'plotting' => $plottings,
         ]);
     }
 
@@ -110,12 +113,30 @@ class AuthController extends Controller
             'addresses_id' => $address->id,
         ]);
 
+        $customer = UserCustomer::where('user_id', $row->id)->first();
+
+        $byward = UserAddress::select(['user_sellers.id as seller_id', 'users.id', 'addresses.ward'])
+                    ->join('addresses', 'addresses.id', '=', 'user_addresses.addresses_id')
+                    ->join('users', 'users.id', '=', 'user_addresses.user_id')
+                    ->join('user_sellers', 'user_sellers.user_id', '=', 'users.id')
+                    ->where('addresses.ward', $validated['ward'])
+                    ->where('users.role_id', 4)
+                    ->orderBy('users.id', 'ASC')
+                    ->first();
+
+
+        $plotting = Plotting::create([
+            'user_customer_id' => $customer->id,
+            'user_seller_id' => $byward->seller_id
+        ]);
+
         $token = $user->createToken($validated['email'])->plainTextToken;
 
         return $this->apiSuccess([
             'token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user
+            'user' => $user,
+            'plotting' => $plotting,
         ]);
     }
 

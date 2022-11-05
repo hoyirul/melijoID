@@ -24,9 +24,9 @@ class SellerController extends Controller
         return $this->apiSuccess($response);
     }
 
-    public function show_by_id($id){
+    public function show_by_id($seller_id){
         $response = ProductImage::join('products', 'product_images.product_id', '=', 'products.id')
-                        ->where('products.user_seller_id', $id)
+                        ->where('products.user_seller_id', $seller_id)
                         ->where('carousel', 1)
                         ->get();
         return $this->apiSuccess($response);
