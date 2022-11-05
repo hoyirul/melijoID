@@ -24,6 +24,11 @@ class TransactionController extends Controller
         ]));
     }
 
+    public static function get_count_transaction(){
+        $res = HeaderTransaction::where('status', 'processing')->orWhere('status', 'unpaid')->count();
+        return $res;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -70,9 +70,10 @@ class PaymentController extends Controller
 
     public function paid_put($txid)
     {
-        HeaderTransaction::where('txid')->update([
+        HeaderTransaction::where('txid', $txid)->update([
             'status' => 'paid'
         ]);
+
         Payment::where('txid', $txid)->update([
             'status' => 'paid'
         ]);
@@ -83,7 +84,7 @@ class PaymentController extends Controller
 
     public function unpaid_put($txid)
     {
-        HeaderTransaction::where('txid')->update([
+        HeaderTransaction::where('txid', $txid)->update([
             'status' => 'unpaid'
         ]);
         Payment::where('txid', $txid)->update([
@@ -96,7 +97,7 @@ class PaymentController extends Controller
 
     public function processing_put($txid)
     {
-        HeaderTransaction::where('txid')->update([
+        HeaderTransaction::where('txid', $txid)->update([
             'status' => 'processing'
         ]);
         Payment::where('txid', $txid)->update([
@@ -109,7 +110,7 @@ class PaymentController extends Controller
 
     public function waiting_put($txid)
     {
-        HeaderTransaction::where('txid')->update([
+        HeaderTransaction::where('txid', $txid)->update([
             'status' => 'waiting'
         ]);
         Payment::where('txid', $txid)->update([

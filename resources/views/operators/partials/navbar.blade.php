@@ -32,14 +32,14 @@
     </li>
     <!-- Nav Item - Alerts -->
     <li class="nav-item dropdown no-arrow mx-1">
-      <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+      {{-- <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
         <span class="badge badge-danger badge-counter">3+</span>
-      </a>
+      </a> --}}
       <!-- Dropdown - Alerts -->
-      <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+      {{-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
         aria-labelledby="alertsDropdown">
         <h6 class="dropdown-header">
           Alerts Center
@@ -78,21 +78,22 @@
           </div>
         </a>
         <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-      </div>
+      </div> --}}
     </li>
     <!-- Nav Item - Messages -->
-    <li class="nav-item dropdown no-arrow mx-1">
-      <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-envelope fa-fw"></i>
+    <li class="nav-item dropdown no-arrow mx-1" title="New Transaction (Unpaid or Processing)">
+      <a class="nav-link" href="{{ (\App\Http\Controllers\Operator\TransactionController::get_count_transaction() < 1) ? '#TidakAdaTransaksi' : '/operator/payment/processing' }}">
+        <i class="fas fa-book fa-fw"></i>
         <!-- Counter - Messages -->
-        <span class="badge badge-danger badge-counter">7</span>
+        <span class="badge badge-danger badge-counter">
+          {{ (\App\Http\Controllers\Operator\TransactionController::get_count_transaction() > 9) ? '9+' : (\App\Http\Controllers\Operator\TransactionController::get_count_transaction()) }}
+        </span>
       </a>
       <!-- Dropdown - Messages -->
-      <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+      {{-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
         aria-labelledby="messagesDropdown">
         <h6 class="dropdown-header">
-          Message Center
+          New Transaction
         </h6>
         <a class="dropdown-item d-flex align-items-center" href="#">
           <div class="dropdown-list-image mr-3">
@@ -147,7 +148,7 @@
           </div>
         </a>
         <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-      </div>
+      </div> --}}
     </li>
     <div class="topbar-divider d-none d-sm-block"></div>
     <!-- Nav Item - User Information -->

@@ -29,8 +29,9 @@
             <tr>
               <th width="20px">#</th>
               <th>Customer</th>
-              {{-- <th>Customer Address</th> --}}
+              <th>Customer Address</th>
               <th>Seller</th>
+              <th>Rute Seller</th>
               {{-- <th>Seller Address</th> --}}
               <th>Created At</th>
               <th>Action</th>
@@ -41,7 +42,19 @@
               <tr>
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td>{{ $item->user_customer->name }}</td>
-                <td>{{ $item->user_seller->name }}</td>
+                <td>
+                  @foreach (\App\Http\Controllers\Operator\PlottingController::get_ward($item->user_customer->user_id) as $row)
+                      {{ \App\Http\Controllers\Operator\PlottingController::get_ward_name($row->address->ward) }}
+                  @endforeach
+                </td>
+                <td>
+                  {{ $item->user_seller->name }}
+                </td>
+                <td>
+                  @foreach (\App\Http\Controllers\Operator\PlottingController::get_ward($item->user_seller->user_id) as $row)
+                      {{ \App\Http\Controllers\Operator\PlottingController::get_ward_name($row->address->ward) }},
+                  @endforeach
+                </td>
                 <td>{{ $item->created_at }}</td>
                 <td class="text-center">
                   <a href="/operator/plotting/{{ $item->id }}/edit" class="btn btn-sm btn-primary">

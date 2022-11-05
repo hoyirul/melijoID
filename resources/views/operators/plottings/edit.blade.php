@@ -10,9 +10,10 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
+      <h6 class="m-0 font-weight-bold text-primary">{{ $title }} {{ '- '.$ward->nama }}</h6>
     </div>
     <div class="card-body">
+      <p class="text-danger">Note : Melijo yang tampil hanya yang memiliki rute di ({{ $ward->nama }})! </p>
       <form action="/operator/plotting/{{ $tables->id }}" method="post">
         @csrf
         @method('PUT')

@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use App\Models\Plotting;
 use App\Models\UserAddress;
-use App\Models\UserCustomer;
-use App\Models\UserSeller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PlottingController extends Controller
 {
@@ -25,6 +24,16 @@ class PlottingController extends Controller
             'title',
             'tables'
         ]));
+    }
+
+    public static function get_ward($user_id){
+        $res = UserAddress::with('address')->where('user_id', $user_id)->get();
+        return $res;
+    }
+
+    public static function get_ward_name($ward_id){
+        $ward = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/kelurahan/'.$ward_id)->body());
+        return $ward->nama;
     }
 
     /**
@@ -50,7 +59,7 @@ class PlottingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   
         $title = 'Plotting Table';
         $tables = Plotting::with('user_customer')->with('user_seller')->where('id', $id)->first();
         $address_customer = UserAddress::with('address')->where('user_id', $tables->user_customer->user_id)->first();
@@ -60,8 +69,13 @@ class PlottingController extends Controller
                     ->where('addresses.ward', $address_customer->address->ward)
                     ->get();
 
+        // $provinsi = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->body())->provinsi;
+        // $city = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/kota')->body())->kota_kabupaten;
+        // $districts = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/kecamatan')->body())->kecamatan;
+        $ward = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/kelurahan/'.$address_customer->address->ward)->body());
+
         return view('operators.plottings.edit', compact([
-            'title', 'tables', 'seller'
+            'title', 'tables', 'seller', 'ward'
         ]));
     }
 

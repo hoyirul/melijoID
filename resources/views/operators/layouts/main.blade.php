@@ -15,6 +15,11 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('operators/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <style>
+      table{
+        font-size: 10pt;
+      }
+    </style>
   </head>
   <body id="page-top">
     <!-- Page Wrapper -->
@@ -57,8 +62,9 @@
     <!-- Page level plugins -->
     <script src="{{ asset('operators/vendor/chart.js/Chart.min.js') }}"></script>
     <!-- Page level custom scripts -->
-    <script src="{{ asset('operators/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('operators/js/demo/chart-pie-demo.js') }}"></script>
+    {{-- <script src="{{ asset('operators/js/demo/chart-area-demo.js') }}"></script> --}}
+    
+    {{-- <script src="{{ asset('operators/js/demo/chart-pie-demo.js') }}"></script> --}}
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
