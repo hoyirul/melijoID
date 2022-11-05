@@ -84,7 +84,7 @@ class TransactionController extends Controller
     {
         $txid = 'TX-'.strtoupper(Str::random(12));
         $validated = $request->validated();
-        // dd($validated);
+        
         HeaderTransaction::create([
             'txid' => $txid,
             'user_customer_id' => $validated['user_customer_id'],
@@ -95,9 +95,11 @@ class TransactionController extends Controller
             'total' => $validated['total'],
             'information' => $validated['information'],
         ]);
+        $carts = Cart::with('product')
+                    ->where('user_customer_id', $validated['user_customer_id'])
+                    ->whereIn('id', json_decode($validated['cart_id']))
+                    ->get();
 
-        $carts = Cart::with('product')->where('user_customer_id', $validated['user_customer_id'])->get();
-        
         foreach($carts as $row){
             DetailTransaction::create([
                 'txid' => $txid,

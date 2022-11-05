@@ -33,6 +33,7 @@ class TransactionRequest extends FormRequest
             'date_order' => 'required',
             'total' => 'required',
             'information' => 'nullable|string',
+            'cart_id' => 'required'
         ];
     }
 
