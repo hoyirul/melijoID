@@ -24,7 +24,7 @@ class ProductRecomendationController extends Controller
         $recoms = ProductRecipeRecomendation::with('recipe')
                      ->where('id', $id)
                      ->first();
-        $products = Product::where('product_name', 'LIKE', $recoms->keyword)
+        $products = Product::where('product_name', 'LIKE', '%'.$recoms->keyword.'%')
                     ->get();
         $response = [
             'recipe' => $recoms,
