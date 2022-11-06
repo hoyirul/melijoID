@@ -77,7 +77,7 @@ class ProductController extends Controller
         $validated = $request->validated();
         $response = ProductImage::join('products', 'product_images.product_id', '=', 'products.id')
                      ->where('products.user_seller_id', $seller_id)
-                     ->where('product_name', 'LIKE', '%'.$validated['keyword'].'%')
+                     ->where('product_name', 'LIKE', '%'.$validated['product_name'].'%')
                      ->where('carousel', 1)
                      ->get();
         // $response = Product::where('product_name', 'LIKE', '%'.$validated['product_name'].'%')
