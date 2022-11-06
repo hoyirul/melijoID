@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductRecipeRecomendation;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -25,9 +26,11 @@ class ProductRecomendationController extends Controller
         $recoms = ProductRecipeRecomendation::with('recipe')
                      ->where('id', $id)
                      ->first();
-        $products = Product::where('product_name', 'LIKE', '%'.$recoms->keyword.'%')
-                    ->where('user_seller_id', $seller_id)
-                    ->get();
+        $products = ProductImage::join('products', 'product_images.product_id', '=', 'products.id')
+                     ->where('products.user_seller_id', $seller_id)
+                     ->where('product_name', 'LIKE', '%'.$recoms->keyword.'%')
+                     ->where('carousel', 1)
+                     ->get();
         $response = [
             'recipe' => $recoms,
             'products' => $products
