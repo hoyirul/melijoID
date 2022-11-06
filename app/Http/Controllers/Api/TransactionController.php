@@ -26,11 +26,11 @@ class TransactionController extends Controller
             return $this->apiError('No transactions yet!', 422);
         }
 
-        $details = DetailTransaction::with('product')->where('txid', $headers->txid)->get();
+        // $details = DetailTransaction::with('product')->where('txid', $headers->txid)->get();
 
         $response = [
             'transaction' => $headers,
-            'detail_transaction' => $details,
+            // 'detail_transaction' => $details,
         ];
 
         return $this->apiSuccess($response);
