@@ -20,13 +20,13 @@ class UserSeeder extends Seeder
             [
                 'username' => 'superadmin',
                 'email' => 'superadmin@melijo.id',
-                'password' => Hash::make('superadmin'),
+                'password' => Hash::make('SPRadm@@123'),
                 'role_id' => 1
             ],
             [
                 'username' => 'admin',
                 'email' => 'admin@melijo.id',
-                'password' => Hash::make('admin'),
+                'password' => Hash::make('adm@@157'),
                 'role_id' => 2
             ],
             [
