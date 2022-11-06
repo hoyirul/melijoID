@@ -75,9 +75,14 @@ class ProductController extends Controller
     public function search(SearchProductRequest $request, $seller_id)
     {
         $validated = $request->validated();
-        $response = Product::where('product_name', 'LIKE', '%'.$validated['product_name'].'%')
-                    ->where('user_seller_id', $seller_id)
-                    ->get();
+        $response = ProductImage::join('products', 'product_images.product_id', '=', 'products.id')
+                     ->where('products.user_seller_id', $seller_id)
+                     ->where('product_name', 'LIKE', '%'.$request->keyword.'%')
+                     ->where('carousel', 1)
+                     ->get();
+        // $response = Product::where('product_name', 'LIKE', '%'.$validated['product_name'].'%')
+        //             ->where('user_seller_id', $seller_id)
+        //             ->get();
         return $this->apiSuccess($response);
     }
 
