@@ -29,10 +29,24 @@ class CartController extends Controller
 
     public function store(CartRequest $request)
     {
-        $request->validated();
-        $response = Cart::create($request->all());
+        $validated = $request->validated();
+        
+        $carts = Cart::where('product_id', $validated['product_id'])
+                        ->where('user_customer_id', $validated['user_customer_id'])->first();
 
-        return $this->apiSuccess($response);
+        if($carts != null){
+            $qty = $validated['quantity'] + $carts->quantity;
+            $response = Cart::where('id', $carts->id)->update([
+                'product_id' => $validated['product_id'],
+                'user_customer_id' => $validated['user_customer_id'],
+                'quantity' => $qty,
+            ]);
+            
+            return $this->apiSuccess($response);
+        }else{
+            $response = Cart::create($request->all());
+            return $this->apiSuccess($response);
+        }
     }
 
     public function show($id)

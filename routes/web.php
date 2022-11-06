@@ -15,6 +15,7 @@ use App\Http\Controllers\Operator\SellerController;
 use App\Http\Controllers\Operator\SettingController;
 use App\Http\Controllers\Operator\TransactionController;
 use App\Http\Controllers\Operator\UnitController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('login');
+});
+
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
 });
 
 Auth::routes(['register' => false]);

@@ -24,14 +24,14 @@ class UserAddressSeeder extends Seeder
                 'user_id' => 2,
                 'addresses_id' => 2,
             ],
-            [
-                'user_id' => 3,
-                'addresses_id' => 3,
-            ],
-            [
-                'user_id' => 4,
-                'addresses_id' => 4,
-            ],
+            // [
+            //     'user_id' => 3,
+            //     'addresses_id' => 3,
+            // ],
+            // [
+            //     'user_id' => 4,
+            //     'addresses_id' => 4,
+            // ],
         ];
 
         foreach($data as $row){
