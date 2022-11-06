@@ -26,12 +26,16 @@ class PaymentController extends Controller
         return $this->apiSuccess($response);
     }
 
-    public function store(PaymentRequest $request)
+    public function store(Request $request)
     {
         $invoice = 'INV-'.strtoupper(Str::random(12));
 
-        $validated = $request->validated();
-        
+        $validated = $request->validate([
+            'txid' => 'nullable',
+            'evidence_of_transfer' => 'nullable',
+            'pay' => 'nullable',
+        ]);
+
         $headers = HeaderTransaction::where('txid', $validated['txid'])->first();
 
         if($headers == null){

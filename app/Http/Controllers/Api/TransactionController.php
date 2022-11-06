@@ -95,6 +95,7 @@ class TransactionController extends Controller
             'total' => $validated['total'],
             'information' => $validated['information'],
         ]);
+        
         $carts = Cart::with('product')
                     ->where('user_customer_id', $validated['user_customer_id'])
                     ->whereIn('id', json_decode($validated['cart_id']))
