@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductImageController;
+use App\Http\Controllers\Api\ProductRecomendationController;
 use App\Http\Controllers\Api\PromoController;
 use App\Http\Controllers\Api\RecipeController;
 use App\Http\Controllers\Api\RecipeFavouriteController;
@@ -80,6 +81,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(RecipeController::class)->group(function() {
         Route::get('recipe', 'index');
         Route::get('recipe/{id}', 'show');
+    });
+    
+    Route::controller(ProductRecomendationController::class)->group(function() {
+        Route::get('product_recom', 'index');
+        Route::get('product_recom/{id}', 'show');
     });
 
     Route::controller(RecipeFavouriteController::class)->group(function() {
