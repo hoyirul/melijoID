@@ -19,12 +19,13 @@ class ProductRecomendationController extends Controller
         return $this->apiSuccess($response);
     }
 
-    public function show($id)
+    public function show($id, $seller_id)
     {
         $recoms = ProductRecipeRecomendation::with('recipe')
                      ->where('id', $id)
                      ->first();
         $products = Product::where('product_name', 'LIKE', '%'.$recoms->keyword.'%')
+                    ->where('user_seller_id', $seller_id)
                     ->get();
         $response = [
             'recipe' => $recoms,

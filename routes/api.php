@@ -85,7 +85,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::controller(ProductRecomendationController::class)->group(function() {
         Route::get('product_recom', 'index');
-        Route::get('product_recom/{id}', 'show');
+        Route::get('product_recom/{id}/{seller_id}', 'show');
     });
 
     Route::controller(RecipeFavouriteController::class)->group(function() {
