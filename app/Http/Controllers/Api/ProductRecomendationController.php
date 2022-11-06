@@ -12,9 +12,10 @@ class ProductRecomendationController extends Controller
 {
     use ApiResponse;
 
-    public function index()
+    public function index($recipe_id)
     {
         $response = ProductRecipeRecomendation::with('recipe')
+                     ->where('recipe_id', $recipe_id)
                      ->get();
         return $this->apiSuccess($response);
     }
