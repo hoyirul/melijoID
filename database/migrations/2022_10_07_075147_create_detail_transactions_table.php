@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained();
             $table->integer('quantity');
             $table->float('price', 12,2);
-            $table->float('substotal', 12,2);
+            $table->float('subtotal', 12,2);
             $table->timestamps();
         });
     }
