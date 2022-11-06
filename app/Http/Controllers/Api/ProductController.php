@@ -80,9 +80,6 @@ class ProductController extends Controller
                      ->where('product_name', 'LIKE', '%'.$validated['product_name'].'%')
                      ->where('carousel', 1)
                      ->get();
-        // $response = Product::where('product_name', 'LIKE', '%'.$validated['product_name'].'%')
-        //             ->where('user_seller_id', $seller_id)
-        //             ->get();
         return $this->apiSuccess($response);
     }
 

@@ -14,10 +14,6 @@ class CartController extends Controller
 
     public function index($customer_id)
     {
-        // ProductImage::join('products', 'product_images.product_id', '=', 'products.id')
-        //                 ->where('products.user_seller_id', $id)
-        //                 ->where('carousel', 1)
-        //                 ->get();
         $response = Cart::select(['carts.id as cart_id', 'carts.product_id', 'carts.user_customer_id', 'carts.quantity', 'products.user_seller_id as user_seller_id', 'products.id as category_id', 'products.id as unit_id', 'products.product_name', 'products.price', 'products.stock', 'products.description', 'product_images.image', 'product_images.carousel'])
                      ->join('products', 'products.id', '=', 'carts.product_id')
                      ->join('product_images', 'product_images.product_id', '=', 'products.id')
@@ -41,7 +37,7 @@ class CartController extends Controller
                 'user_customer_id' => $validated['user_customer_id'],
                 'quantity' => $qty,
             ]);
-            
+
             return $this->apiSuccess($response);
         }else{
             $response = Cart::create($request->all());

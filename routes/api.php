@@ -83,6 +83,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(RecipeController::class)->group(function() {
         Route::get('recipe', 'index');
+        Route::post('recipe/search', 'search');
         Route::get('recipe/{id}', 'show');
     });
     
