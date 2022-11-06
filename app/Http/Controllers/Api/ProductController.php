@@ -83,6 +83,14 @@ class ProductController extends Controller
         return $this->apiSuccess($response);
     }
 
+    public function show_by_category($category_id){
+        $response = ProductImage::join('products', 'product_images.product_id', '=', 'products.id')
+                        ->where('products.category_id', $category_id)
+                        ->where('carousel', 1)
+                        ->get();
+        return $this->apiSuccess($response);
+    }
+
     /**
      * Update the specified resource in storage.
      *

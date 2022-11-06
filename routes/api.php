@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::apiResource('product', ProductController::class);
     Route::post('product/{seller_id}/search', [ProductController::class, 'search']);
+    Route::get('product/{category_id}/category', [ProductController::class, 'show_by_category']);
 
 
     Route::apiResource('product_image', ProductImageController::class);
