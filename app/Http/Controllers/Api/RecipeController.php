@@ -21,8 +21,9 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipe = Recipe::with('recipe_category')->where('id', $id)->first();
+        dd($recipe);
         $recoms = ProductRecipeRecomendation::with('recipe')
-                     ->where('recipe_id', $$recipe->id)
+                     ->where('recipe_id', $recipe->id)
                      ->get();
         $response = [
             'recipe' => $recipe,
