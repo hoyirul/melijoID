@@ -20,7 +20,7 @@ class TransactionController extends Controller
 
     public function index($customer_id){
         $headers = HeaderTransaction::with('user_seller')->with('user_customer')->with('promo')
-                        ->where('user_customer_id', $customer_id)->first();
+                        ->where('user_customer_id', $customer_id)->get();
         
         if($headers == null){
             return $this->apiError('No transactions yet!', 422);

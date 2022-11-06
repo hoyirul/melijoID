@@ -68,7 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::controller(TransactionController::class)->group(function() {
-        Route::get('transaction/{customer_id}', 'index');
+        Route::get('transaction/{customer_id}/customer', 'index');
         Route::put('transaction/{txid}/confirmation', 'update_status_trx');
         Route::put('transaction/{txid}/canceled', 'update_status_canceled');
         Route::post('transaction', 'store');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\HeaderTransaction;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PaymentController extends Controller
 {
@@ -70,6 +71,9 @@ class PaymentController extends Controller
 
     public function paid_put($txid)
     {
+        $response = Http::post('https://fcm.googleapis.com/v1/projects/melijo-id/messages:send', [
+            'Authorization' => 'Bearer AAAACd3VpkQ:APA91bEI6Jy7g7sM-FPLB1WYeFfC8nFX51EVwDxHFy1bKtmPDZltPZtITrpVidzIaUt14zLyXlA4d6I15YnpPjo0zq6EyV06YTNfhynzHUuHJj1Zm4fggX2o69-EWB5pCBPtVqBmW7ou'
+        ]);
         HeaderTransaction::where('txid', $txid)->update([
             'status' => 'paid'
         ]);
