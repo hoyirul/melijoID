@@ -32,6 +32,14 @@ class RecipeController extends Controller
         return $this->apiSuccess($response);
     }
 
+    public function show_by_category($recipe_category_id)
+    {
+        $response = Recipe::with('recipe_category')
+                    ->where('recipe_category_id', $recipe_category_id)->get();
+                    
+        return $this->apiSuccess($response);
+    }
+
     public function show($id)
     {
         $recipe = Recipe::with('recipe_category')->where('id', $id)->first();
