@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
@@ -203,6 +204,20 @@ class AuthController extends Controller
                 Response::HTTP_INTERNAL_SERVER_ERROR
             ));
         }
+    }
+
+    public function test_fcm(){
+        $response = Http::accept('application/json')->withHeaders([
+            'Authorization' => 'key=AAAACd3VpkQ:APA91bEI6Jy7g7sM-FPLB1WYeFfC8nFX51EVwDxHFy1bKtmPDZltPZtITrpVidzIaUt14zLyXlA4d6I15YnpPjo0zq6EyV06YTNfhynzHUuHJj1Zm4fggX2o69-EWB5pCBPtVqBmW7ou'
+        ])->post('https://fcm.googleapis.com/fcm/send', [
+            'registration_ids' => ['eTCFbsieTN25j1_FKewN4f:APA91bFhl7yo6UHBdMmT89d7fqFSYVNGEDop37tQA9wuJ0b7U_RKzPgmUT_m16QJYt6zReCJIre2tbp3YGwSRcxALDx6wfJ0H9Crnz2yyfQaLxggO8pt6Ji5HAVQK_fWE8eFiO8MmLby'],
+            'notification' => [
+                'body' => 'Test Notification',
+                'title' => 'Push notif'
+            ]
+        ]);
+
+        return $this->apiSuccess($response->body());
     }
 }
 

@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/auth/login', [AuthController::class, 'login']);
+Route::get('/auth/test_fcm', [AuthController::class, 'test_fcm']);
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/register/seller', [AuthController::class, 'register_seller']);
 Route::put('/auth/fcm_token', [AuthController::class, 'fcm']);
