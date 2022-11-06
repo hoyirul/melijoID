@@ -140,6 +140,58 @@ class AuthController extends Controller
         ]);
     }
 
+    public function register_seller(RegisterRequest $request)
+    {
+        $validated = $request->validated();
+
+        $user = User::create([
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role_id' => $validated['role_id']
+        ]);
+
+        $row = User::orderBy('id', 'DESC')->first();
+
+        switch($validated['role_id']){
+            case 3:
+                UserCustomer::create([
+                    'user_id' => $row->id,
+                    'name' => $validated['name'],
+                    'phone' => $validated['phone'],
+                ]);
+                break;
+            case 4:
+                UserSeller::create([
+                    'user_id' => $row->id,
+                    'name' => $validated['name'],
+                    'phone' => $validated['phone'],
+                ]);
+                break;
+        }
+
+        Address::create([
+            'province' => $validated['province'],
+            'city' => $validated['city'],
+            'districts' => $validated['districts'],
+            'ward' => $validated['ward'],
+        ]);
+
+        $address = Address::orderBy('id', 'DESC')->first();
+
+        UserAddress::create([
+            'user_id' => $row->id,
+            'addresses_id' => $address->id,
+        ]);
+
+        $token = $user->createToken($validated['email'])->plainTextToken;
+
+        return $this->apiSuccess([
+            'token' => $token,
+            'token_type' => 'Bearer',
+            'user' => $user,
+        ]);
+    }
+
     public function logout()
     {
         try{
@@ -153,3 +205,5 @@ class AuthController extends Controller
         }
     }
 }
+
+

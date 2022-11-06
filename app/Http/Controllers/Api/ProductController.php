@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\SearchProductRequest;
 use App\Models\DetailTransaction;
 use App\Models\HeaderTransaction;
 use App\Models\Product;
@@ -68,6 +69,15 @@ class ProductController extends Controller
             'images' => $productImage
         ];
 
+        return $this->apiSuccess($response);
+    }
+
+    public function search(SearchProductRequest $request, $seller_id)
+    {
+        $validated = $request->validated();
+        $response = Product::where('product_name', 'LIKE', '%'.$validated['product_name'].'%')
+                    ->where('user_seller_id', $seller_id)
+                    ->get();
         return $this->apiSuccess($response);
     }
 

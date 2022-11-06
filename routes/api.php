@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/register/seller', [AuthController::class, 'register_seller']);
 Route::put('/auth/fcm_token', [AuthController::class, 'fcm']);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -47,6 +48,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('address', AddressController::class);
     
     Route::apiResource('product', ProductController::class);
+    Route::post('product/{seller_id}/search', [ProductController::class, 'search']);
+
 
     Route::apiResource('product_image', ProductImageController::class);
 
