@@ -143,8 +143,8 @@ class AuthController extends Controller
 
     public function register_seller(RegisterRequest $request)
     {
-        $validated = $request->validated();
 
+        $validated = $request->validated();
         $user = User::create([
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
@@ -170,19 +170,23 @@ class AuthController extends Controller
                 break;
         }
 
-        Address::create([
-            'province' => $validated['province'],
-            'city' => $validated['city'],
-            'districts' => $validated['districts'],
-            'ward' => $validated['ward'],
-        ]);
+        $wards = json_decode($validated['ward']);
 
-        $address = Address::orderBy('id', 'DESC')->first();
+        foreach($wards as $item){
+            Address::create([
+                'province' => $validated['province'],
+                'city' => $validated['city'],
+                'districts' => $validated['districts'],
+                'ward' => $item,
+            ]);
+            
+            $address = Address::orderBy('id', 'DESC')->first();
 
-        UserAddress::create([
-            'user_id' => $row->id,
-            'addresses_id' => $address->id,
-        ]);
+            UserAddress::create([
+                'user_id' => $row->id,
+                'addresses_id' => $address->id,
+            ]);
+        }
 
         $token = $user->createToken($validated['email'])->plainTextToken;
 

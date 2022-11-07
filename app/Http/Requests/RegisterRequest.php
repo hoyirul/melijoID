@@ -34,7 +34,7 @@ class RegisterRequest extends FormRequest
             'province' => 'required|string',
             'city' => 'required|string',
             'districts' => 'required|string',
-            'ward' => 'required|string',
+            'ward' => 'required',
         ];
     }
 
