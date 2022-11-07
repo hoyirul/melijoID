@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchRecipeRequest;
 use App\Models\ProductRecipeRecomendation;
 use App\Models\Recipe;
+use App\Models\RecipeCategory;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,13 @@ class RecipeController extends Controller
     {
         $response = Recipe::with('recipe_category')
                     ->where('recipe_category_id', $recipe_category_id)->get();
+                    
+        return $this->apiSuccess($response);
+    }
+
+    public function show_category()
+    {
+        $response = RecipeCategory::all();
                     
         return $this->apiSuccess($response);
     }

@@ -128,7 +128,7 @@ class AuthController extends Controller
 
         $plotting = Plotting::create([
             'user_customer_id' => $customer->id,
-            'user_seller_id' => $byward->seller_id
+            'user_seller_id' => ($byward->seller_id == null) ? null : $byward->seller_id
         ]);
 
         $token = $user->createToken($validated['email'])->plainTextToken;
