@@ -26,9 +26,6 @@ class RecipeController extends Controller
         $response = Recipe::with('recipe_category')
                      ->where('recipe_title', 'LIKE', '%'.$validated['recipe_title'].'%')
                      ->get();
-        if($response != null){
-            return $this->apiSuccess('Recipe '.$validated['recipe_title'].' tidak ada!', 422);    
-        }
 
         return $this->apiSuccess($response);
     }
