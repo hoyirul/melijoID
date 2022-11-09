@@ -21,7 +21,7 @@ class TransactionController extends Controller
 
     public function index($customer_id){
         $headers = HeaderTransaction::with('user_seller')->with('user_customer')->with('promo')
-                        ->where('user_customer_id', $customer_id)->get();
+                        ->where('user_customer_id', $customer_id)->orderBy('created_at', 'DESC')->get();
         
         if($headers == null){
             return $this->apiError('No transactions yet!', 422);
@@ -44,7 +44,7 @@ class TransactionController extends Controller
         //                 ->where('product_images.carousel', 1)
         //                 ->where('header_transactions.user_seller_id', $seller_id)->get();
         $headers = HeaderTransaction::with('user_seller')->with('user_customer')->with('promo')
-                        ->where('user_seller_id', $seller_id)->get();
+                        ->where('user_seller_id', $seller_id)->orderBy('created_at')->get();
 
         if($headers == null){
             return $this->apiError('No transactions yet!', 422);

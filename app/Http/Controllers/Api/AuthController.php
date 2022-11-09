@@ -33,9 +33,11 @@ class AuthController extends Controller
         $user = User::where('email', $validated['email'])->first();
         $token = $user->createToken($validated['email'])->plainTextToken;
         $detail = [];
+        $plottings = [];
         switch($user->role_id){
             case 3:
                 $detail = UserCustomer::where('user_id', $user->id)->first();
+                $plottings = Plotting::where('user_customer_id', $detail->id)->first();
                 break;
             case 4:
                 $detail = UserSeller::where('user_id', $user->id)->first();
@@ -46,7 +48,6 @@ class AuthController extends Controller
         }
         
         $address = UserAddress::with('address')->where('user_id', $user->id)->first();
-        $plottings = Plotting::where('user_customer_id', $detail->id)->first();
 
         return $this->apiSuccess([
             'token' => $token,
@@ -224,5 +225,3 @@ class AuthController extends Controller
         return $this->apiSuccess($response->body());
     }
 }
-
-
