@@ -52,7 +52,7 @@
                 </td>
                 <td>
                   @foreach (\App\Http\Controllers\Operator\PlottingController::get_ward(($item->user_seller == null) ? null : $item->user_seller->user_id) as $row)
-                      {{ \App\Http\Controllers\Operator\PlottingController::get_ward_name(($row->address == null) ? null : $row->address) }},
+                      {{ \App\Http\Controllers\Operator\PlottingController::get_ward_name(($row->address == null) ? null : $row->address->ward) }},
                   @endforeach
                 </td>
                 <td>{{ $item->created_at }}</td>
