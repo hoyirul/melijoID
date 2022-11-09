@@ -48,11 +48,11 @@
                   @endforeach
                 </td>
                 <td>
-                  {{ $item->user_seller->name }}
+                  {{ ($item->user_seller == null) ? null : $item->user_seller->name }}
                 </td>
                 <td>
-                  @foreach (\App\Http\Controllers\Operator\PlottingController::get_ward($item->user_seller->user_id) as $row)
-                      {{ \App\Http\Controllers\Operator\PlottingController::get_ward_name($row->address->ward) }},
+                  @foreach (\App\Http\Controllers\Operator\PlottingController::get_ward(($item->user_seller == null) ? null : $item->user_seller->user_id) as $row)
+                      {{ \App\Http\Controllers\Operator\PlottingController::get_ward_name(($row->address == null) ? null : $row->address) }},
                   @endforeach
                 </td>
                 <td>{{ $item->created_at }}</td>

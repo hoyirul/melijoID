@@ -18,8 +18,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $response = Unit::with('product')
-                     ->get();
+        $response = Unit::all();
         return $this->apiSuccess($response);
     }
 
@@ -51,8 +50,7 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        $response = Unit::with('product')
-                        ->where('id', $id)->first();
+        $response = Unit::where('id', $id)->first();
         return $this->apiSuccess($response);
     }
 
@@ -67,8 +65,7 @@ class UnitController extends Controller
     {
         $request->validated();
         Unit::where('id', $id)->update($request->all());
-        $response = Unit::with('product')
-                        ->where('id', $id)->first();
+        $response = Unit::where('id', $id)->first();
         return $this->apiSuccess($response);
         
     }
