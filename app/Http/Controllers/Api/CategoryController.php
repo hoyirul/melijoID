@@ -18,8 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $response = Category::with('product')
-                     ->get();
+        $response = Category::all();
         return $this->apiSuccess($response);
     }
 
@@ -51,8 +50,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $response = Category::with('product')
-                        ->where('id', $id)->first();
+        $response = Category::where('id', $id)->first();
         return $this->apiSuccess($response);
     }
 
@@ -67,8 +65,7 @@ class CategoryController extends Controller
     {
         $request->validated();
         Category::where('id', $id)->update($request->all());
-        $response = Category::with('product')
-                        ->where('id', $id)->first();
+        $response = Category::where('id', $id)->first();
         return $this->apiSuccess($response);
         
     }

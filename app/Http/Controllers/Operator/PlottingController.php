@@ -32,6 +32,10 @@ class PlottingController extends Controller
     }
 
     public static function get_ward_name($ward_id){
+        if($ward_id == null){
+            return 'None';    
+        }
+        
         $ward = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/kelurahan/'.$ward_id)->body());
         return $ward->nama;
     }
