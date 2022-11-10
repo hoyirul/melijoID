@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use App\Models\HeaderTransaction;
 use App\Models\Payment;
+use App\Models\UserOperator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class PaymentController extends Controller
@@ -84,7 +86,9 @@ class PaymentController extends Controller
 
     public function paid_put($txid)
     {
+        $opr = UserOperator::where('user_id', Auth::user()->id)->first();
         HeaderTransaction::where('txid', $txid)->update([
+            'user_operator_id' => $opr->id,
             'status' => 'paid'
         ]);
 
@@ -106,9 +110,12 @@ class PaymentController extends Controller
 
     public function unpaid_put($txid)
     {
+        $opr = UserOperator::where('user_id', Auth::user()->id)->first();
         HeaderTransaction::where('txid', $txid)->update([
+            'user_operator_id' => $opr->id,
             'status' => 'unpaid'
         ]);
+
         Payment::where('txid', $txid)->update([
             'status' => 'unpaid'
         ]);
@@ -119,9 +126,12 @@ class PaymentController extends Controller
 
     public function processing_put($txid)
     {
+        $opr = UserOperator::where('user_id', Auth::user()->id)->first();
         HeaderTransaction::where('txid', $txid)->update([
+            'user_operator_id' => $opr->id,
             'status' => 'processing'
         ]);
+
         Payment::where('txid', $txid)->update([
             'status' => 'processing'
         ]);
@@ -132,9 +142,12 @@ class PaymentController extends Controller
 
     public function waiting_put($txid)
     {
+        $opr = UserOperator::where('user_id', Auth::user()->id)->first();
         HeaderTransaction::where('txid', $txid)->update([
+            'user_operator_id' => $opr->id,
             'status' => 'waiting'
         ]);
+
         Payment::where('txid', $txid)->update([
             'status' => 'waiting'
         ]);
