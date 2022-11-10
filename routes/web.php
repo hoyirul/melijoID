@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/payment/unpaid', 'unpaid');
             Route::get('/payment/processing', 'processing');
             Route::get('/payment/waiting', 'waiting');
+            Route::get('/payment/canceled', 'canceled');
             Route::get('/payment/{txid}/paid', 'paid_put');
             Route::get('/payment/{txid}/unpaid', 'unpaid_put');
             Route::get('/payment/{txid}/processing', 'processing_put');

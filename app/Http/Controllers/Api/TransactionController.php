@@ -116,7 +116,8 @@ class TransactionController extends Controller
                 'product_id' => $row->product_id,
                 'quantity' => $row->quantity,
                 'price' => $row->product->price,
-                'subtotal' => $row->product->price * $row->quantity 
+                'subtotal' => $row->product->price * $row->quantity,
+                'grouping' => $txid.'-'.$row->grouping,
             ]);
         }
 

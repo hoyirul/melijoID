@@ -29,6 +29,7 @@
             <tr>
               <th width="20px">#</th>
               <th>Category</th>
+              <th>Image</th>
               <th>Product</th>
               <th>Created At</th>
               <th>Action</th>
@@ -39,6 +40,7 @@
               <tr>
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td>{{ $item->category_name }}</td>
+                <td><a href="{{ asset('storage/'.$item->image) }}" target="_blank">image</a></td>
                 <td class="text-center">{{ $item->product->count() }}</td>
                 <td>{{ $item->created_at }}</td>
                 <td>

@@ -70,6 +70,18 @@ class PaymentController extends Controller
         ]));
     }
 
+    public function canceled()
+    {
+        $title = 'Payment Table (Canceled)';
+        $tables = Payment::with('header_transaction')
+                        ->where('status', 'canceled')
+                        ->get();
+        return view('operators.payments.index', compact([
+            'title',
+            'tables'
+        ]));
+    }
+
     public function paid_put($txid)
     {
         HeaderTransaction::where('txid', $txid)->update([

@@ -36,6 +36,7 @@ class CartController extends Controller
                 'product_id' => $validated['product_id'],
                 'user_customer_id' => $validated['user_customer_id'],
                 'quantity' => $qty,
+                'grouping' => $validated['grouping'],
             ]);
 
             return $this->apiSuccess($response);

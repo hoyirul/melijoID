@@ -45,15 +45,19 @@
                 <td>{{ $item->date_order }}</td>
                 <td>Rp. {{ number_format($item->total) }}</td>
                 <td class="text-center">
-                  @if ($item->status == 'paid')
-                    <span class="badge py-1 px-3 badge-success">{{ $item->status }}</span>
-                  @elseif ($item->status == 'unpaid')
-                    <span class="badge py-1 px-3 badge-danger">{{ $item->status }}</span>
-                  @elseif($item->status == 'processing')
-                    <span class="badge py-1 px-3 badge-warning">{{ $item->status }}</span>
+                  @if ($item->status == 'canceled')
+                    <span class="badge py-1 px-3 badge-default">{{ $item->status }}</span>
                   @else
-                    <span class="badge py-1 px-3 badge-info">{{ $item->status }}</span>
-                  @endif
+                    @if ($item->status == 'paid')
+                      <span class="badge py-1 px-3 badge-success">{{ $item->status }}</span>
+                    @elseif ($item->status == 'unpaid')
+                      <span class="badge py-1 px-3 badge-danger">{{ $item->status }}</span>
+                    @elseif($item->status == 'processing')
+                      <span class="badge py-1 px-3 badge-warning">{{ $item->status }}</span>
+                    @else
+                      <span class="badge py-1 px-3 badge-info">{{ $item->status }}</span>
+                    @endif
+                  @endif                  
                 </td>
               </tr>
             @endforeach

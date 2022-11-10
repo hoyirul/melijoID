@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -47,10 +48,16 @@ class CategoryController extends Controller
     {
         $request->validate([
             'category_name' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if($request->image != null){
+            $image = $request->file('image')->store('categories/', 'public');
+        }
 
         Category::create([
             'category_name' => $request->category_name,
+            'image' => $image,
         ]);
 
         return redirect()->to('/operator/category')
@@ -101,8 +108,19 @@ class CategoryController extends Controller
             'category_name' => 'required',
         ]);
 
+        $image = null;
+        $tables = Category::where('id', $id)->first();
+        if($tables->image && file_exists(storage_path('app/public/'. $tables->image))){
+            Storage::delete(['public/', $tables->image]);
+        }
+        
+        if($request->image != null){
+            $image = $request->file('image')->store('categories', 'public');
+        }
+
         Category::where('id', $id)->update([
             'category_name' => $request->category_name,
+            'image' => ($image == null) ? $tables->image : $image,
         ]);
 
         return redirect()->to('/operator/category')

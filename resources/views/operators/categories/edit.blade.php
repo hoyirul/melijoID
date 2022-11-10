@@ -13,17 +13,29 @@
       <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
     </div>
     <div class="card-body">
-      <form action="/operator/category/{{ $tables->id }}" method="post">
+      <form action="/operator/category/{{ $tables->id }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <div class="form-group">
-          <label for="">Category Name : </label>
-          <input type="text" name="category_name" id="category_name" class="form-control @error('category_name') is-invalid @enderror" placeholder="Category Name" value="{{ $tables->category_name }}">
-          @error('category_name')
-            <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-          @enderror
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label for="">Category Name : </label>
+            <input type="text" name="category_name" id="category_name" class="form-control @error('category_name') is-invalid @enderror" placeholder="Category Name" value="{{ $tables->category_name }}">
+            @error('category_name')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+          </div>
+
+          <div class="col-md-6">
+            <label for="">File Icon : </label>
+            <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" placeholder="Category Name">
+            @error('image')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+            @enderror
+          </div>
         </div>
         
         <div class="form-group">
