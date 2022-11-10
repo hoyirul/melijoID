@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('detail_transactions', function (Blueprint $table) {
-            $table->text('information')->after('subtotal')->nullable();
+            $table->text('grouping')->after('subtotal')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('detail_transactions', function (Blueprint $table) {
-            $table->dropColumn('information');
+            $table->dropColumn('grouping');
         });
     }
 };
