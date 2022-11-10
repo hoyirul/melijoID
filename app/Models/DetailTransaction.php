@@ -9,7 +9,7 @@ class DetailTransaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['txid', 'product_id', 'quantity', 'price', 'subtotal'];
+    protected $fillable = ['txid', 'product_id', 'quantity', 'price', 'subtotal', 'information'];
 
     public function header_transaction(){
         return $this->belongsTo(HeaderTransaction::class, 'txid', 'txid');

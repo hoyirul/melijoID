@@ -28,18 +28,18 @@ class AddressSeeder extends Seeder
                 'districts' => 2,
                 'ward' => 4,
             ],
-            [
-                'province' => 1,
-                'city' => 2,
-                'districts' => 4,
-                'ward' => 2,
-            ],
-            [
-                'province' => 1,
-                'city' => 2,
-                'districts' => 4,
-                'ward' => 2,
-            ],
+            // [
+            //     'province' => 1,
+            //     'city' => 2,
+            //     'districts' => 4,
+            //     'ward' => 2,
+            // ],
+            // [
+            //     'province' => 1,
+            //     'city' => 2,
+            //     'districts' => 4,
+            //     'ward' => 2,
+            // ],
         ];
 
         foreach($data as $row){
