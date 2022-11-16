@@ -17,7 +17,7 @@ class TransactionController extends Controller
     public function index()
     {
         $title = 'Transaction Table';
-        $tables = HeaderTransaction::with('user_customer')->with('user_seller')
+        $tables = HeaderTransaction::with('user_customer')->with('user_seller')->with('promo')
                         ->get();
         return view('operators.transactions.index', compact([
             'title',
