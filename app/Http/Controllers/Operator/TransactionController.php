@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailTransaction;
 use App\Models\HeaderTransaction;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,25 @@ class TransactionController extends Controller
             'title',
             'tables'
         ]));
+    }
+
+    public static function get_calc($txid){
+        $headers = HeaderTransaction::where('txid', $txid)->first();
+        $detail = DetailTransaction::where('txid', $txid)->get();
+
+        $price = [];
+        foreach($detail as $row){
+            $price[] = ($row->price * (5/100)) * $row->quantity;
+        }
+
+        $total = $headers->total;
+
+        $json = [
+            'ppn' => array_sum($price),
+            'total' => $total - array_sum($price)
+        ];
+
+        return $json;
     }
 
     public static function get_count_transaction(){

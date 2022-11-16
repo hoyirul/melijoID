@@ -29,18 +29,18 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('adm@@157'),
                 'role_id' => 2
             ],
-            // [
-            //     'username' => 'customer',
-            //     'email' => 'customer@melijo.id',
-            //     'password' => Hash::make('customer'),
-            //     'role_id' => 3
-            // ],
-            // [
-            //     'username' => 'seller',
-            //     'email' => 'seller@melijo.id',
-            //     'password' => Hash::make('seller'),
-            //     'role_id' => 4
-            // ],
+            [
+                'username' => 'customer',
+                'email' => 'customer@melijo.id',
+                'password' => Hash::make('customer'),
+                'role_id' => 3
+            ],
+            [
+                'username' => 'seller',
+                'email' => 'seller@melijo.id',
+                'password' => Hash::make('seller'),
+                'role_id' => 4
+            ],
         ];
 
         foreach($data as $row){
