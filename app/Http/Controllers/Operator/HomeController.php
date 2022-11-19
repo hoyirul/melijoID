@@ -20,7 +20,7 @@ class HomeController extends Controller
         $no = -1;
         $chart_area = [];
         foreach($m as $x){
-            $y = Payment::where('status', 'paid')
+            $y = Payment::where('status', 'paid')->orWhere('status', 'waiting')
             ->whereMonth('created_at', '=', $x)
             ->sum('pay');
             $chart_area[] = $y;
@@ -34,10 +34,10 @@ class HomeController extends Controller
             $chart_pie[] = $y;
         }
         
-        $monthly = Payment::where('status', 'paid')
+        $monthly = Payment::where('status', 'paid')->orWhere('status', 'waiting')
                         ->whereMonth('created_at', '=', $month)
                         ->sum('pay');
-        $annual = Payment::where('status', 'paid')
+        $annual = Payment::where('status', 'paid')->orWhere('status', 'waiting')
                         ->whereYear('created_at', '=', $year)
                         ->sum('pay');
         $transactions = HeaderTransaction::where('status', 'processing')->count();

@@ -62,7 +62,7 @@ class PaymentController extends Controller
 
     public function waiting()
     {
-        $title = 'Payment Table (Waiting)';
+        $title = 'Payment Table (Done)';
         $tables = Payment::with('header_transaction')
                         ->where('status', 'waiting')
                         ->get();

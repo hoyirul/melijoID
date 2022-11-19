@@ -115,13 +115,13 @@
     <i class="fas fa-fw fa-chart-pie"></i>
     <span>Payments</span>
     </a>
-    <div id="collapsePayment" class="collapse {{ ($title == 'Payment All Table' || $title == 'Payment Table (Paid)' || $title == 'Payment Table (Unpaid)' || $title == 'Payment Table (Processing)' || $title == 'Payment Table (Waiting)') || $title == 'Payment Table (Canceled)' ? 'show' : '' }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+    <div id="collapsePayment" class="collapse {{ ($title == 'Payment All Table' || $title == 'Payment Table (Paid)' || $title == 'Payment Table (Unpaid)' || $title == 'Payment Table (Processing)' || $title == 'Payment Table (Done)') || $title == 'Payment Table (Canceled)' ? 'show' : '' }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Status Payments:</h6>
         <a class="collapse-item {{ ($title == 'Payment Table (Paid)') ? 'active' : '' }}" href="/operator/payment/paid">Paid</a>
         <a class="collapse-item {{ ($title == 'Payment Table (Unpaid)') ? 'active' : '' }}" href="/operator/payment/unpaid">Unpaid</a>
         <a class="collapse-item {{ ($title == 'Payment Table (Processing)') ? 'active' : '' }}" href="/operator/payment/processing">Processing</a>
-        <a class="collapse-item {{ ($title == 'Payment Table (Waiting)') ? 'active' : '' }}" href="/operator/payment/waiting">Waiting</a>
+        <a class="collapse-item {{ ($title == 'Payment Table (Done)') ? 'active' : '' }}" href="/operator/payment/waiting">Waiting</a>
         <a class="collapse-item {{ ($title == 'Payment Table (Canceled)') ? 'active' : '' }}" href="/operator/payment/canceled">Canceled</a>
         <div class="collapse-divider"></div>
         <h6 class="collapse-header">All Payments:</h6>

@@ -157,7 +157,7 @@
             <i class="fas fa-circle text-warning"></i> Processing
             </span>
             <span class="mr-2">
-            <i class="fas fa-circle text-info"></i> Waiting
+            <i class="fas fa-circle text-info"></i> Done
             </span>
           </div>
         </div>

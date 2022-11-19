@@ -50,7 +50,7 @@
                   <a href="/operator/payment/{{ $item->txid }}/paid" class="text-center btn btn-sm btn-success" onclick="return confirm('Apakah anda yakin?')">{{ 'paid' }}</a>
                   <a href="/operator/payment/{{ $item->txid }}/unpaid" class="text-center btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')">{{ 'unpaid' }}</a>
                   <a href="/operator/payment/{{ $item->txid }}/processing" class="text-center btn btn-sm btn-warning" onclick="return confirm('Apakah anda yakin?')">{{ 'processing' }}</a>
-                  <a href="/operator/payment/{{ $item->txid }}/waiting" class="text-center btn btn-sm btn-info" onclick="return confirm('Apakah anda yakin?')">{{ 'waiting' }}</a>
+                  <a href="/operator/payment/{{ $item->txid }}/waiting" class="text-center btn btn-sm btn-info" onclick="return confirm('Apakah anda yakin?')">{{ 'done' }}</a>
                 </td>
               </tr>
             @endforeach

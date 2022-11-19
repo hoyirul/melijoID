@@ -8,7 +8,7 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Paid", "Unpaid", "Processing", "Waiting"],
+    labels: ["Paid", "Unpaid", "Processing", "Done"],
     datasets: [{
       data: {{ json_encode($chart_pie) }},
       backgroundColor: ['#1cc88a', '#e74a3b', '#f6c23e','#36b9cc'],

@@ -61,7 +61,7 @@
                     @elseif($item->status == 'processing')
                       <span class="badge py-1 px-3 badge-warning">{{ $item->status }}</span>
                     @else
-                      <span class="badge py-1 px-3 badge-info">{{ $item->status }}</span>
+                      <span class="badge py-1 px-3 badge-primary">done</span>
                     @endif
                   @endif                  
                 </td>
