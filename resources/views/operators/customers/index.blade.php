@@ -31,6 +31,7 @@
               <th>Email</th>
               <th>Category</th>
               <th>Phone</th>
+              <th>Address</th>
               <th>Role</th>
               <th>Action</th>
             </tr>
@@ -41,6 +42,11 @@
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td>{{ $item->user->email }}</td>
                 <td>{{ $item->name }}</td>
+                <td>
+                  @foreach (\App\Http\Controllers\Operator\CustomerController::get_ward(($item->user == null) ? null : $item->user->id) as $row)
+                      {{ \App\Http\Controllers\Operator\CustomerController::get_ward_name(($row->address == null) ? null : $row->address->ward) }},
+                  @endforeach
+                </td>
                 <td>{{ $item->phone }}</td>
                 <td>{{ $item->user->role->role_name }}</td>
                 <td>

@@ -29,6 +29,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Carbon\Carbon;
+Route::get('/carb', function(){
+    return Carbon::now()->format('H:i:s');
+});
 
 Route::get('/', function () {
     return redirect('login');

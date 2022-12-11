@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserAddress;
 use App\Models\UserSeller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class SellerController extends Controller
@@ -21,6 +23,20 @@ class SellerController extends Controller
         return view('operators.sellers.index', compact([
             'title', 'tables'
         ]));
+    }
+
+    public static function get_ward($user_id){
+        $res = UserAddress::with('address')->where('user_id', $user_id)->get();
+        return $res;
+    }
+
+    public static function get_ward_name($ward_id){
+        if($ward_id == null){
+            return 'None';    
+        }
+        
+        $ward = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/kelurahan/'.$ward_id)->body());
+        return $ward->nama;
     }
 
     /**

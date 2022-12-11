@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserAddress;
 use App\Models\UserOperator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class OperatorController extends Controller
@@ -21,10 +24,28 @@ class OperatorController extends Controller
      */
     public function index(){
         $title = 'Operator Table';
+        // $tables = UserOperator::join('users', 'user_operators.user_id', '=', 'users.id')
+        //                         ->join('user_addresses', 'users.id', '=', 'user_addresses.user_id')
+        //                         ->join('addresses', 'user_addresses.addresses_id', '=', 'addresses.id')
+        //                         ->get();
         $tables = UserOperator::with('user')->get();
         return view('operators.operators.index', compact([
             'title', 'tables'
         ]));
+    }
+
+    public static function get_ward($user_id){
+        $res = UserAddress::with('address')->where('user_id', $user_id)->get();
+        return $res;
+    }
+
+    public static function get_ward_name($ward_id){
+        if($ward_id == null){
+            return 'None';    
+        }
+        
+        $ward = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/kelurahan/'.$ward_id)->body());
+        return $ward->nama;
     }
 
     /**

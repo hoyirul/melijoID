@@ -31,6 +31,7 @@
               <th>Email</th>
               <th>Category</th>
               <th>Phone</th>
+              <th>Address</th>
               <th>Role</th>
               <th>Action</th>
             </tr>
@@ -42,6 +43,11 @@
                 <td>{{ $item->user->email }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->phone }}</td>
+                <td>
+                  @foreach (\App\Http\Controllers\Operator\OperatorController::get_ward(($item->user == null) ? null : $item->user->id) as $row)
+                      {{ \App\Http\Controllers\Operator\OperatorController::get_ward_name(($row->address == null) ? null : $row->address->ward) }},
+                  @endforeach
+                </td>
                 <td>{{ $item->user->role->role_name }}</td>
                 <td>
                   <form action="/operator/operator/{{ $item->user->id }}" onsubmit="return confirm('Are you sure to delete data?')" method="post">

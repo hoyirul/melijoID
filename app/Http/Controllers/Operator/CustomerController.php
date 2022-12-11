@@ -7,6 +7,8 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserCustomer;
 use Illuminate\Http\Request;
+use App\Models\UserAddress;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class CustomerController extends Controller
@@ -22,6 +24,20 @@ class CustomerController extends Controller
         return view('operators.customers.index', compact([
             'title', 'tables'
         ]));
+    }
+
+    public static function get_ward($user_id){
+        $res = UserAddress::with('address')->where('user_id', $user_id)->get();
+        return $res;
+    }
+
+    public static function get_ward_name($ward_id){
+        if($ward_id == null){
+            return 'None';    
+        }
+        
+        $ward = json_decode(Http::get('https://dev.farizdotid.com/api/daerahindonesia/kelurahan/'.$ward_id)->body());
+        return $ward->nama;
     }
 
     /**
